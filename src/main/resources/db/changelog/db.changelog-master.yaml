@@ -1,0 +1,272 @@
+databaseChangeLog:
+  - changeSet:
+        id: create-category-table
+        author: Bartosz Bartocha
+        changes:
+          - createTable:
+              tableName: category
+              columns:
+                - column:
+                    name: id
+                    type: bigint
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: name
+                    type: varchar(64)
+  -  changeSet:
+       id:  create-item-table
+       author:  Bartosz Bartocha
+       changes:
+         -  createTable:
+              tableName:  item
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  technical_id
+                     type:  UUID
+                -  column:
+                     name:  description
+                     type:  varchar(512)
+                -  column:
+                     name:  category_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -   column:
+                      name: name
+                      type: varchar(64)
+                - column:
+                    name: availability
+                    type: varchar(64)
+  - changeSet:
+      id: create-warehouse-table
+      author:  Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: warehouse
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: UUID
+              - column:
+                  name: item_id
+                  type: bigint
+              - column:
+                  name: number_of_products
+                  type: bigint
+  - changeSet:
+      id: create-client-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: client
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: UUID
+              - column:
+                  name: email
+                  type: varchar(128)
+              - column:
+                  name: password
+                  type: varchar(64)
+              - column:
+                  name: account_currency
+                  type: varchar(64)
+              - column:
+                  name: account_balance
+                  type: varchar(128)
+              - column:
+                  name: status
+                  type: varchar(64)
+  - changeSet:
+      id: create-cart-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: cart
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: UUID
+              - column:
+                  name: item_id
+                  type: bigint
+              - column:
+                  name: number_of_products
+                  type: bigint
+              - column:
+                  name: client_id
+                  type: bigint
+              - column:
+                  name: promo_code
+                  type: varchar(32)
+  - changeSet:
+      id: create-client-order-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: client_order
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: UUID
+              - column:
+                  name: item_id
+                  type: bigint
+              - column:
+                  name: total_amount
+                  type: bigint
+              - column:
+                  name: currency
+                  type: varchar(32)
+              - column:
+                  name: order_date_time
+                  type: datetime
+              - column:
+                  name: delivery_date_time
+                  type: datetime
+              - column:
+                  name: shipping_method
+                  type: varchar(32)
+              - column:
+                  name: status
+                  type: varchar(64)
+              - column:
+                  name: client_id
+                  type: bigint
+  - changeSet:
+      id: create-email-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: email
+            columns:
+              - column:
+                  name: address
+                  type: varchar(128)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: is_marketing_allowed
+                  type: boolean
+  - changeSet:
+      id: add-foreign-key-to-category-id-in-item-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: item
+            baseColumnNames: category_id
+            constraintName: category-foreing-key-to-item
+            referencedTableName: category
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-item-id-in-warehouse-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: warehouse
+            baseColumnNames: item_id
+            constraintName: item-foreing-key-to-warehouse
+            referencedTableName: item
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-item-id-in-cart-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: cart
+            baseColumnNames: item_id
+            constraintName: item-foreing-key-to-cart
+            referencedTableName: item
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-client-id-in-cart-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: cart
+            baseColumnNames: client_id
+            constraintName: client-foreing-key-to-cart
+            referencedTableName: client
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-item-id-in-client-order-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client_order
+            baseColumnNames: item_id
+            constraintName: item-foreing-key-to-order
+            referencedTableName: item
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-client-id-in-client-order-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client_order
+            baseColumnNames: client_id
+            constraintName: client-foreing-key-to-order
+            referencedTableName: client
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-email-in-client-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client
+            baseColumnNames: email
+            constraintName: client-foreing-key-to-email
+            referencedTableName: email
+            referencedColumnNames: address
+            onUpdate: CASCADE
+  - include:
+      file: db/changelog/db.changelog-12.12.2023-1.yaml
+  - include:
+      file: db/changelog/db.changelog-12.12.2023-2.yaml

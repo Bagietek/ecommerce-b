@@ -14,7 +14,7 @@ databaseChangeLog:
               ('krzysiek@gmail.com', 'false');
               INSERT INTO client (technical_id, email, password, account_currency, account_balance, status)
             VALUES
-              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'bartek@gmail.com', 'bartek', 'Euro', '100', 'active'),
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'bartek@gmail.com', '$2y$10$Se/cm4tSWdvl0YBzIGXOVubDFB1vhrWn3xu8932vpwo6obWZbIEwm', 'Euro', '100', 'active'),
               ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 'krzysiek@gmail.com', 'krzysiek', 'Dolar', '100', 'active');
             INSERT INTO item (technical_id, description, category_id, name, availability)
             VALUES

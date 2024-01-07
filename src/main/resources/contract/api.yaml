@@ -42,6 +42,27 @@ paths:
           description: Nieprawidłowe dane
         '500':
           description: Błąd serwera
+  /seller/register:
+    post:
+      summary: Rejestracja nowego sprzedawcy
+      description: Metoda do dodania nowego sprzedawcy
+      operationId: registerSeller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                seller:
+                  $ref: '#/components/schemas/Seller'
+      responses:
+        '200':
+          description: Poprawnie dodano sprzedawce
+        '400':
+          description: Nieprawidłowe dane
+        '500':
+          description: Bład serwera
   /client/account:
     post:
       summary: Zasilenie konta klienta
@@ -67,6 +88,42 @@ paths:
           description: Błąd serwera
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        town:
+          type: string
+          description: Miasto
+        street:
+          type: string
+          description: Ulica
+        postalCode:
+          type: string
+          description: Kod pocztowy
+        houseNumber:
+          type: string
+          description: Numer domu
+        flatNumber:
+          type: string
+          description: Numer mieszkania, opcjonalny
+    Seller:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Imię sprzedawcy
+        surname:
+          type: string
+          description: Nazwisko sprzedawcy
+        address:
+          $ref: '#/components/schemas/Address'
+          description: Adres sprzedawcy
+        email:
+          type: string
+          description: Email sprzedawcy
+        password:
+          type: string
+          description: Zaszyfrowane hasło
     Item:
       type: object
       properties:

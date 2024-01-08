@@ -17,8 +17,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/seller/register").permitAll()
                         .requestMatchers("/guest/items").permitAll()
+                        .requestMatchers("/seller/register").hasRole("SELLER")
                         .anyRequest().authenticated())
                 .oauth2Login(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

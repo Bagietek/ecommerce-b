@@ -5,6 +5,146 @@ info:
 servers:
   - url: http://localhost:8080/
 paths:
+  /warehouse/update/price:
+    patch:
+      summary: Aktualizacja stanu magazynu
+      description: Metoda do aktualizacji ceny danego przedmiotu w magazynie
+      operationId: updateWarehousePrice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                technicalId:
+                  type: string
+                price:
+                  type: string
+      responses:
+        '200':
+          description: Poprawnie zaktualizowano stan magazynu
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /warehouse/update/stock:
+    patch:
+      summary: Aktualizacja stanu magazynu
+      description: Metoda do aktualizacji stanu magazynowego danego przedmiotu
+      operationId: updateWarehouseStock
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                technicalId:
+                  type: string
+                amount:
+                  type: integer
+      responses:
+        '200':
+          description: Poprawnie zaktualizowano stan magazynu
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /order/{technicalId}:
+    get:
+      summary: Znalezienie zamówienia
+      description: Metoda do znalezienia zamówienia za pomocą uuid zamówienia
+      operationId: getOrderByTechnicalId
+      parameters:
+        - name: technicalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Poprawnie znaleziono zamówienie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    $ref: '#/components/schemas/Order'
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /client/cart/submit:
+    post:
+      summary: Zatwierdzenie zamówienia z koszyka
+      description: Metoda do zatwierdzenia zamówienia zanjdującego się w koszyku użytkownika
+      operationId: submitOrderFromCart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Poprawnie zatwierdzono zamówienie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /client/cart/{technicalId}:
+    delete:
+      summary: Usuwanie przedmiotów do koszyka
+      description: Metoda do usuwania przedmiotu z koszyka zalogowanego użytkownika
+      operationId: deleteItemsFromCart
+      parameters:
+        - name: technicalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Poprawnie usunięto przedmiot z koszyka
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /client/cart:
+    post:
+      summary: Dodanie przedmiotów do koszyka
+      description: Metoda do dodania przedmiotu oraz jego ilości do koszyka zalogowanego użytkownika
+      operationId: addItemsToCart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                technicalId:
+                  type: string
+                amount:
+                  type: integer
+      responses:
+        '200':
+          description: Poprawnie dodano przedmiot do koszyka
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
   /guest/items:
     get:
       summary: Pobranie dostępnych przedmiotów
@@ -42,11 +182,11 @@ paths:
           description: Nieprawidłowe dane
         '500':
           description: Błąd serwera
-  /seller/register:
+  /client/register:
     post:
-      summary: Rejestracja nowego sprzedawcy
-      description: Metoda do dodania nowego sprzedawcy
-      operationId: registerSeller
+      summary: Rejestracja nowego klienta
+      description: Metoda do dodania nowego klienta
+      operationId: registerClient
       requestBody:
         required: true
         content:
@@ -54,11 +194,11 @@ paths:
             schema:
               type: object
               properties:
-                seller:
-                  $ref: '#/components/schemas/Seller'
+                client:
+                  $ref: '#/components/schemas/Client'
       responses:
         '200':
-          description: Poprawnie dodano sprzedawce
+          description: Poprawnie dodano klienta
         '400':
           description: Nieprawidłowe dane
         '500':
@@ -76,7 +216,8 @@ paths:
               type: object
               properties:
                 email:
-                  $ref: '#/components/schemas/Email'
+                  type: string
+                  description: Email zasilanego klienta
                 amount:
                   $ref: '#/components/schemas/Amount'
       responses:
@@ -88,6 +229,25 @@ paths:
           description: Błąd serwera
 components:
   schemas:
+    Order:
+      type: object
+      properties:
+        technicalId:
+          type: string
+        currency:
+          type: string
+        orderDateTime:
+          type: string
+        deliveryDateTime:
+          type: string
+        shippingMethod:
+          type: string
+        status:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
     Address:
       type: object
       properties:
@@ -106,21 +266,20 @@ components:
         flatNumber:
           type: string
           description: Numer mieszkania, opcjonalny
-    Seller:
+    Client:
       type: object
       properties:
         name:
           type: string
-          description: Imię sprzedawcy
+          description: Imię klienta
         surname:
           type: string
-          description: Nazwisko sprzedawcy
+          description: Nazwisko klienta
         address:
           $ref: '#/components/schemas/Address'
-          description: Adres sprzedawcy
         email:
           type: string
-          description: Email sprzedawcy
+          description: Email klienta
         password:
           type: string
           description: Zaszyfrowane hasło
@@ -142,10 +301,6 @@ components:
         amount:
           type: integer
           description: Dostępna ilość przedmiotu
-    Email:
-      type: string
-      format: email
-      description: Email klienta
     Amount:
       type: object
       properties:

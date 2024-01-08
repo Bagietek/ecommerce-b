@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table(name = "client")
 public class ClientEntity {
 
-    public ClientEntity(UUID technicalId, EmailEntity email, String password, String accountCurrency, String accountBalance, String status) {
+    public ClientEntity(UUID technicalId, String email, String password, String accountCurrency, String accountBalance, String status) {
         this.technicalId = technicalId;
         this.email = email;
         this.password = password;
@@ -30,9 +30,7 @@ public class ClientEntity {
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "email")
-    private EmailEntity email;
+    private String email;
 
     private String password;
 

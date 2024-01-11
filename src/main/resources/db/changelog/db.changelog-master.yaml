@@ -242,3 +242,7 @@ databaseChangeLog:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:
       file: db/changelog/db.changelog-12.12.2023-2.yaml
+  - include:
+      file: db/changelog/11.01.2024-SessionJDBC.yaml
+  - include:
+      file: db/changelog/11.01.2024-UserAndAuthority.yaml

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.SellerApi;
 import pl.akademiaspecjalistowit.model.AddItemRequest;
-import pl.akademiaspecjalistowit.model.RegisterSellerRequest;
 
 import java.util.Optional;
 
@@ -25,9 +24,5 @@ public class SellerController implements SellerApi {
         return ResponseEntity.ok().build();
     }
 
-    @Override
-    public ResponseEntity<Void> registerSeller(RegisterSellerRequest registerSellerRequest) {
-        log.info("Registering new seller");
-        return ResponseEntity.ok().build();
-    }
+
 }

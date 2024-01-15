@@ -3,7 +3,6 @@ package pl.akademiaspecjalistowit.ecommerce.client.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
-import pl.akademiaspecjalistowit.ecommerce.entity.EmailEntity;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public ClientEntity getClientByEmail(EmailEntity emailEntity) {
-        return clientDataService.getClientByEmailEntity(emailEntity);
+    public ClientEntity getClientByEmail(String email) {
+        return clientDataService.getClientByEmail(email);
     }
 }

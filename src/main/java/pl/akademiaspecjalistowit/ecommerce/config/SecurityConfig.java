@@ -9,20 +9,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import pl.akademiaspecjalistowit.ecommerce.user.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
+    private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/seller/register").permitAll()
-                        .requestMatchers("/guest/items").permitAll()
+                        .requestMatchers("/guest/items").hasRole("CLIENT")
+                        .requestMatchers("/seller/register").hasRole("SELLER")
                         .anyRequest().authenticated())
-                .oauth2Login(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(infoEndpoint ->
+                                infoEndpoint.userService((customOAuth2UserService))))
                 .csrf().disable();
                 //todo: csrf in postman
         return http.build();

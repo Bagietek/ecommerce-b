@@ -173,23 +173,6 @@ databaseChangeLog:
                   name: client_id
                   type: bigint
   - changeSet:
-      id: create-email-table
-      author: Bartosz Bartocha
-      changes:
-        - createTable:
-            tableName: email
-            columns:
-              - column:
-                  name: address
-                  type: varchar(128)
-                  autoIncrement: false
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: is_marketing_allowed
-                  type: boolean
-  - changeSet:
       id: add-foreign-key-to-category-id-in-item-table
       author: Bartosz Bartocha
       changes:
@@ -255,18 +238,11 @@ databaseChangeLog:
             referencedTableName: client
             referencedColumnNames: id
             onUpdate: CASCADE
-  - changeSet:
-      id: add-foreign-key-to-email-in-client-table
-      author: Bartosz Bartocha
-      changes:
-        - addForeignKeyConstraint:
-            baseTableName: client
-            baseColumnNames: email
-            constraintName: client-foreing-key-to-email
-            referencedTableName: email
-            referencedColumnNames: address
-            onUpdate: CASCADE
   - include:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:
       file: db/changelog/db.changelog-12.12.2023-2.yaml
+  - include:
+      file: db/changelog/11.01.2024-SessionJDBC.yaml
+  - include:
+      file: db/changelog/11.01.2024-UserAndAuthority.yaml

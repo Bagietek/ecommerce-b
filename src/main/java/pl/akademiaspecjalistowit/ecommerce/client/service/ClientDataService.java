@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.client.repository.ClientRepository;
 import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
-import pl.akademiaspecjalistowit.ecommerce.entity.EmailEntity;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ClientDataService{
         clientRepository.deleteById(clientId);
     }
 
-    public ClientEntity getClientByEmailEntity(EmailEntity emailEntity){
-        return clientRepository.getClientEntityByEmail(emailEntity);
+    public ClientEntity getClientByEmail(String email){
+        return clientRepository.getClientEntityByEmail(email);
     }
 }

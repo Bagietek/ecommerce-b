@@ -10,10 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.ClientApi;
 import pl.akademiaspecjalistowit.api.GuestApi;
 import pl.akademiaspecjalistowit.api.SellerApi;
-import pl.akademiaspecjalistowit.model.AddFundsRequest;
-import pl.akademiaspecjalistowit.model.AddItemRequest;
-import pl.akademiaspecjalistowit.model.Item;
-import pl.akademiaspecjalistowit.model.RegisterSellerRequest;
+import pl.akademiaspecjalistowit.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,4 +31,27 @@ public class ClientController implements ClientApi {
         return ResponseEntity.ok().build();
     }
 
+    @Override
+    public ResponseEntity<Void> addItemsToCart(UpdateWarehouseStockRequest updateWarehouseStockRequest) {
+        log.info("Adding items to cart");
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteItemsFromCart(String technicalId) {
+        log.info("Deleting items from cart");
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> registerClient(RegisterClientRequest registerClientRequest) {
+        log.info("Registering new client");
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<SubmitOrderFromCart200Response> submitOrderFromCart(SubmitOrderFromCartRequest submitOrderFromCartRequest) {
+        log.info("Submitting order");
+        return ResponseEntity.ok().build();
+    }
 }

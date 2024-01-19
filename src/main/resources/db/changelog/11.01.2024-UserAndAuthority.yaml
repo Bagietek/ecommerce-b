@@ -56,3 +56,11 @@ databaseChangeLog:
               - column:
                   name: user_entity_id
                   type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: client
+            baseColumnNames: user_entity_id
+            referencedTableName: user_entity
+            referencedColumnNames: id
+            constraintName: client-user-entity-id-constraint
+            onDelete: CASCADE
+            onUpdate: CASCADE

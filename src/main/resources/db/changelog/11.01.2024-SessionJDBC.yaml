@@ -73,3 +73,4 @@ databaseChangeLog:
             constraintName: SPRING_SESSION_ATTRIBUTES_FK
             referencedTableName: SPRING_SESSION
             referencedColumnNames: PRIMARY_ID
+            onDelete: CASCADE

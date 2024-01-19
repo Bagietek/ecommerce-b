@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
 
 import java.util.UUID;
 
@@ -14,13 +16,13 @@ import java.util.UUID;
 @Table(name = "client")
 public class ClientEntity {
 
-    public ClientEntity(UUID technicalId, String email, String password, String accountCurrency, String accountBalance, String status) {
+    public ClientEntity(UUID technicalId, String accountCurrency, String accountBalance, String status, UserEntity userEntity, String email) {
         this.technicalId = technicalId;
-        this.email = email;
-        this.password = password;
         this.accountCurrency = accountCurrency;
         this.accountBalance = accountBalance;
         this.status = status;
+        this.userEntity = userEntity;
+        this.email = email;
     }
 
     @Id
@@ -30,10 +32,6 @@ public class ClientEntity {
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    private String email;
-
-    private String password;
-
     @Column(name = "account_currency")
     private String accountCurrency;
 
@@ -41,4 +39,11 @@ public class ClientEntity {
     private String accountBalance;
 
     private String status;
+
+    private String email;
+
+    @OneToOne
+    @JoinColumn(name = "user_entity_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    private UserEntity userEntity;
 }

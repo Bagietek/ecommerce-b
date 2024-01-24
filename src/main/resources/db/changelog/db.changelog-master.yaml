@@ -47,6 +47,9 @@ databaseChangeLog:
                 - column:
                     name: availability
                     type: varchar(64)
+                - column:
+                    name: price
+                    type: decimal
   - changeSet:
       id: create-warehouse-table
       author:  Bartosz Bartocha

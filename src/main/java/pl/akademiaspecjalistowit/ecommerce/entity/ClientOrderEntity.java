@@ -2,8 +2,10 @@ package pl.akademiaspecjalistowit.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 
 import java.util.Date;
 import java.util.Set;
@@ -12,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "client_order")
 public class ClientOrderEntity {
 

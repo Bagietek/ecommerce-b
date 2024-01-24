@@ -1,18 +1,11 @@
 package pl.akademiaspecjalistowit.ecommerce.warehouse.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.ecommerce.entity.WarehouseEntity;
-import pl.akademiaspecjalistowit.ecommerce.exception.WarehouseNotFoundException;
+import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
+import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
 
-@Service
-@AllArgsConstructor
-public class WarehouseService{
+public interface WarehouseService {
 
-    private final WarehouseDataService warehouseDataService;
+    WarehouseEntity getWarehouseStock(Long warehouseId);
 
-    public WarehouseEntity getWarehouseStock(Long warehouseId) {
-        return warehouseDataService.getWarehouse(warehouseId)
-                .orElseThrow(WarehouseNotFoundException::new);
-    }
+    public void processNewItem(ItemEntity item, long amount);
 }

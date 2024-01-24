@@ -4,11 +4,15 @@ databaseChangeLog:
       author: Bartosz Bartocha
       changes:
         - sql: |
-            INSERT INTO category (id, name)
+            INSERT INTO category (name)
             VALUES
-              (1, 'Book'),
-              (2, 'Furniture');
-            INSERT INTO item (id, technical_id, description, category_id, name, availability)
+              ('Book'),
+              ('Furniture');
+            INSERT INTO item (technical_id, description, category_id, name, availability, price)
             VALUES
-              (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'in-stock'),
-              (2, 'a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'in-stock');
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'in-stock', 5.35),
+              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'in-stock', 9.99);
+            INSERT INTO warehouse (technical_id, item_id, number_of_products)
+            VALUES
+              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 1, 20),
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 2, 15);

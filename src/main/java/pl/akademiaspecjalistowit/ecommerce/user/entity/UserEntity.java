@@ -2,6 +2,7 @@ package pl.akademiaspecjalistowit.ecommerce.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "user_entity")
 public class UserEntity implements UserDetails {

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.akademiaspecjalistowit.ecommerce.entity.ItemEntity;
+import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.service.ItemService;
 
 import java.util.List;

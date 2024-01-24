@@ -292,7 +292,7 @@ components:
         description:
           type: string
           description: Opis przedmiotu
-        category:
+        categories:
           type: string
           description: Kategoria przedmiotu
         price:

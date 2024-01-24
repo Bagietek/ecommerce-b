@@ -47,6 +47,9 @@ databaseChangeLog:
                 - column:
                     name: availability
                     type: varchar(64)
+                - column:
+                    name: price
+                    type: decimal
   - changeSet:
       id: create-warehouse-table
       author:  Bartosz Bartocha
@@ -91,9 +94,6 @@ databaseChangeLog:
                   name: email
                   type: varchar(128)
               - column:
-                  name: password
-                  type: varchar(64)
-              - column:
                   name: account_currency
                   type: varchar(64)
               - column:
@@ -102,6 +102,9 @@ databaseChangeLog:
               - column:
                   name: status
                   type: varchar(64)
+              - column:
+                  name: user_entity_id
+                  type: bigint
   - changeSet:
       id: create-cart-table
       author: Bartosz Bartocha

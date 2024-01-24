@@ -19,9 +19,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/guest/items").hasRole("CLIENT")
-                        .requestMatchers("/seller/register").hasRole("SELLER")
-                        .anyRequest().authenticated())
+                        /* todo: security layers, temporarily disabled for postman use
+                        .requestMatchers("/guest/items").permitAll()
+                        .requestMatchers("/seller/register").hasRole("SELLER")*/
+                        .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(infoEndpoint ->

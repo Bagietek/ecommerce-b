@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientDataService;
 import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
 
 @Service
 @AllArgsConstructor
@@ -20,8 +21,8 @@ public class CustomUserDetailsService implements org.springframework.security.co
             throw new UsernameNotFoundException("User not found");
         }
         return new User(
-                clientEntity.getEmail(),
-                clientEntity.getPassword(),
+                clientEntity.getUserEntity().getUsername(),
+                clientEntity.getUserEntity().getPassword(),
                 AuthorityUtils.createAuthorityList("CLIENT")
                 );
     }

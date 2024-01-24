@@ -4,19 +4,15 @@ databaseChangeLog:
       author: Bartosz Bartocha
       changes:
         - sql: |
-            INSERT INTO category (id, name)
+            INSERT INTO category (name)
             VALUES
-              (1, 'Book'),
-              (2, 'Furniture');
-              INSERT INTO client (id, technical_id, email, password, account_currency, account_balance, status)
+              ('Book'),
+              ('Furniture');
+            INSERT INTO item (technical_id, description, category_id, name, availability, price)
             VALUES
-              (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'bartek@gmail.com', '$2y$10$Se/cm4tSWdvl0YBzIGXOVubDFB1vhrWn3xu8932vpwo6obWZbIEwm', 'Euro', '100', 'active'),
-              (2, 'a50ac10b-58cc-4372-a567-0e02b2c3d479', 'krzysiek@gmail.com', 'krzysiek', 'Dolar', '100', 'active');
-            INSERT INTO item (id, technical_id, description, category_id, name, availability)
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'in-stock', 5.35),
+              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'in-stock', 9.99);
+            INSERT INTO warehouse (technical_id, item_id, number_of_products)
             VALUES
-              (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'in-stock'),
-              (2, 'a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'in-stock');
-            INSERT INTO client_order (id, technical_id, item_id, total_amount, currency, order_date_time, shipping_method, status, client_id)
-            VALUES
-              (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', '1', '10', 'Euro', '2023-11-27 15:30:00.123456+00', 'courier', 'packing', '1'),
-              (2, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', '2', '5', 'Euro', '2023-11-27 15:30:00.123456+00', 'courier', 'packing', '1');
+              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 1, 20),
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 2, 15);

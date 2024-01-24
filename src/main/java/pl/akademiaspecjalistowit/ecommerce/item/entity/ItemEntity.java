@@ -1,26 +1,30 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.item.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.akademiaspecjalistowit.ecommerce.category.entity.CategoryEntity;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "item")
 public class ItemEntity {
 
-    public ItemEntity(UUID technicalId, String description, Set<CategoryEntity> categoryId, String name, String availability) {
+    public ItemEntity(UUID technicalId, String description, CategoryEntity categoryId, String name, String availability, BigDecimal price) {
         this.technicalId = technicalId;
         this.description = description;
         this.categoryId = categoryId;
         this.name = name;
         this.availability = availability;
+        this.price = price;
     }
 
     @Id
@@ -32,11 +36,14 @@ public class ItemEntity {
 
     private String description;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
-    private Set<CategoryEntity> categoryId;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryId;
 
     private String name;
 
     private String availability;
+
+    @Column(name = "price")
+    private BigDecimal price;
 }

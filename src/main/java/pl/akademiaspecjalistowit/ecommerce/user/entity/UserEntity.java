@@ -2,6 +2,7 @@ package pl.akademiaspecjalistowit.ecommerce.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +13,9 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
+@Table(name = "user_entity")
 public class UserEntity implements UserDetails {
     public UserEntity(Set<AuthorityEntity> authorities, String username, String provider, String providerId) {
         this.authorities = authorities;
@@ -23,6 +26,7 @@ public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

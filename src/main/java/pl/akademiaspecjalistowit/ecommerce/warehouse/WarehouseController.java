@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.WarehouseApi;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.service.WarehouseService;
-import pl.akademiaspecjalistowit.ecommerce.entity.WarehouseEntity;
+import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
 import pl.akademiaspecjalistowit.model.UpdateWarehousePriceRequest;
 
 import java.util.Optional;

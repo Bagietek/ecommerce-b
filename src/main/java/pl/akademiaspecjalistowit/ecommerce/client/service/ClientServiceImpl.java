@@ -1,8 +1,9 @@
 package pl.akademiaspecjalistowit.ecommerce.client.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 
 import java.util.List;
 
@@ -30,5 +31,11 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public ClientEntity getClientByEmail(String email) {
         return clientDataService.getClientByEmail(email);
+    }
+
+    @Transactional
+    public void verifyClient(ClientEntity clientEntity){
+        clientEntity.VerifyClient();
+        clientDataService.saveClient(clientEntity);
     }
 }

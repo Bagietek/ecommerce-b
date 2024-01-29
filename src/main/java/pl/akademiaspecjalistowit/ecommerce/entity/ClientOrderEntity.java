@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.client.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import pl.akademiaspecjalistowit.ecommerce.client.model.ClientStatus;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
 
 import java.util.UUID;
@@ -47,4 +48,8 @@ public class ClientEntity {
     @JoinColumn(name = "user_entity_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private UserEntity userEntity;
+
+    public void VerifyClient(){
+        this.status = ClientStatus.ACTIVATED.toString();
+    }
 }

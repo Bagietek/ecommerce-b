@@ -14,3 +14,12 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
     show-summary: summary
+  mail:
+    port: 587
+    host: smtp.gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

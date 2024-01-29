@@ -176,6 +176,37 @@ databaseChangeLog:
                   name: client_id
                   type: bigint
   - changeSet:
+      id: create-verification-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: verification_data
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: bigint
+              - column:
+                  name: token
+                  type: UUID
+  - changeSet:
+      id: add-foreign-key-to-client-id-in-verification_data-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: verification_data
+            baseColumnNames: client_id
+            constraintName: client-foreing-key-to-verification
+            referencedTableName: client
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
       id: add-foreign-key-to-category-id-in-item-table
       author: Bartosz Bartocha
       changes:

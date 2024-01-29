@@ -1,6 +1,6 @@
 package pl.akademiaspecjalistowit.ecommerce.client.service;
 
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 
 import java.util.List;
 
@@ -13,4 +13,6 @@ public interface ClientService {
     void deleteClient(Long clientId);
 
     ClientEntity getClientByEmail(String emailEntity);
+
+    void verifyClient(ClientEntity clientEntity);
 }

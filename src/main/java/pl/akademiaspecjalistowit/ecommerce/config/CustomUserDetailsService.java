@@ -7,8 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientDataService;
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
-import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 
 @Service
 @AllArgsConstructor

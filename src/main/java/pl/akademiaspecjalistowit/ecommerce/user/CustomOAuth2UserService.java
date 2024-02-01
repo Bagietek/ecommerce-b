@@ -13,7 +13,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.client.model.ClientStatus;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientDataService;
-import pl.akademiaspecjalistowit.ecommerce.email.service.EmailServiceImpl;
+import pl.akademiaspecjalistowit.ecommerce.email.model.EmailInput;
+import pl.akademiaspecjalistowit.ecommerce.email.service.EmailService;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.AuthorityEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
@@ -28,7 +29,7 @@ import static java.util.Objects.isNull;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserDataService userDataService;
     private final ClientDataService clientDataService;
-    private final EmailServiceImpl emailService;
+    private final EmailService emailService;
 
     @Override
     @SneakyThrows
@@ -72,7 +73,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         );
         clientDataService.saveClient(clientEntity);
         if(!email.equals("unknown")){
-            emailService.sendActivationMail(email);
+            emailService.sendActivationMail(new EmailInput(email));
         }
         return user;
     }

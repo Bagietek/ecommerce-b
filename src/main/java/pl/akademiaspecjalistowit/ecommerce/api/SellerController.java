@@ -17,10 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SellerController implements SellerApi {
     private ItemService itemService;
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return SellerApi.super.getRequest();
-    }
 
     @Override
     public ResponseEntity<Void> addItem(AddItemRequest addItemRequest) {

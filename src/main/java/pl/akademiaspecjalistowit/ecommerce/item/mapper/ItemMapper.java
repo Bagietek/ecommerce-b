@@ -19,7 +19,7 @@ public class ItemMapper {
         for(ItemDto itemDtos : itemDto){
             Item currentItem = new Item();
             currentItem.setName(itemDtos.getName());
-            currentItem.setAmount((int) itemDtos.getNumber_of_products());
+            currentItem.setAmount((Math.toIntExact(itemDtos.getNumber_of_products())));
             currentItem.setPrice(itemDtos.getPrice());
             currentItem.setDescription(itemDtos.getDescription());
             currentItem.setCategories(itemDtos.getCategory());

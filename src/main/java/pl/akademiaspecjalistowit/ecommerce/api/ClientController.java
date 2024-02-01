@@ -28,30 +28,30 @@ public class ClientController implements ClientApi {
     @Override
     public ResponseEntity<Void> addFunds(AddFundsRequest addFundsRequest) {
         log.info("Founds update: {}", addFundsRequest.toString());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(501).build();
     }
 
     @Override
     public ResponseEntity<Void> addItemsToCart(UpdateWarehouseStockRequest updateWarehouseStockRequest) {
         log.info("Adding items to cart");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(501).build();
     }
 
     @Override
     public ResponseEntity<Void> deleteItemsFromCart(String technicalId) {
         log.info("Deleting items from cart");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(501).build();
     }
 
     @Override
     public ResponseEntity<Void> registerClient(RegisterClientRequest registerClientRequest) {
         log.info("Registering new client");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(501).build();
     }
 
     @Override
     public ResponseEntity<SubmitOrderFromCart200Response> submitOrderFromCart(SubmitOrderFromCartRequest submitOrderFromCartRequest) {
         log.info("Submitting order");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(501).build();
     }
 }

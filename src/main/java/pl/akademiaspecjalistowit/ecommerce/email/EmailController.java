@@ -18,7 +18,7 @@ public class EmailController {
 
     @PostMapping("/verify")
     public void sendVerificationMail(@RequestBody EmailInput email){
-        emailService.sendActivationMail(email.getEmail());
+        emailService.sendActivationMail(email);
     }
 
     @GetMapping("/verify/{token}")

@@ -10,6 +10,7 @@ import pl.akademiaspecjalistowit.ecommerce.item.dto.ItemInput;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.mapper.ItemMapper;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemAvailability;
+import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.service.WarehouseService;
 import pl.akademiaspecjalistowit.model.AddItemRequest;
 import pl.akademiaspecjalistowit.model.Item;
@@ -27,18 +28,17 @@ public class ItemServiceImpl implements ItemService{
     private final WarehouseService warehouseService;
 
     @Override
-    public List<ItemEntity> findByCategoryId(Long categoryId) {
-        return itemDataService.findByCategoryId(categoryId);
-    }
-
-    @Override
-    public List<ItemEntity> findAll() {
-        return itemDataService.findAll();
+    public List<ItemView> getAllItemFromViewByCategory(String category) {
+        return itemDataService.findAllItemsWithAmountByCategory(category);
     }
 
     @Override
     public List<Item> getAllItemsWithAmountAndCategory() {
         return ItemMapper.fromItemDto(itemDataService.findAllItemsWithAmount());
+    }
+
+    public List<ItemView> getAllItemFromView(){
+        return itemDataService.findAllItemsWithAmountByView();
     }
 
     @Override

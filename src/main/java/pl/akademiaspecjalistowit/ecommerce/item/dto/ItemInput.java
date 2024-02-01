@@ -15,5 +15,5 @@ public class ItemInput {
     private String description;
     private String category;
     private BigDecimal price;
-    private int amount;
+    private Integer amount;
 }

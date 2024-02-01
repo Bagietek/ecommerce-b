@@ -20,10 +20,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class GuestController implements GuestApi {
     private ItemService itemService;
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return GuestApi.super.getRequest();
-    }
 
     @Override
     public ResponseEntity<List<Item>> getItems() {
@@ -41,6 +37,5 @@ public class GuestController implements GuestApi {
         return ResponseEntity
                 .ok()
                 .body(items);
-        //return ResponseEntity.ok().build();
     }
 }

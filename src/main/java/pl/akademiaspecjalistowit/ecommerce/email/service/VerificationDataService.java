@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.email.exception.VerificationNotFound;
 import pl.akademiaspecjalistowit.ecommerce.email.entity.VerificationEntity;
+import pl.akademiaspecjalistowit.ecommerce.email.mapper.VerificationMapper;
+import pl.akademiaspecjalistowit.ecommerce.email.model.VerificationDto;
 import pl.akademiaspecjalistowit.ecommerce.email.repository.VerificationRepository;
 
 import java.util.UUID;
@@ -12,17 +14,19 @@ import java.util.UUID;
 @AllArgsConstructor
 public class VerificationDataService {
     private final VerificationRepository verificationRepository;
+    private final VerificationMapper verificationMapper;
 
-    public VerificationEntity findByToken(UUID token){
-        return verificationRepository.findByToken(token).orElseThrow(VerificationNotFound::new);
+    public VerificationDto findByToken(UUID token){
+        VerificationEntity verificationEntity = verificationRepository.findByToken(token).orElseThrow(VerificationNotFound::new);
+        return verificationMapper.fromEntity(verificationEntity);
     }
 
-    public void save(VerificationEntity verificationEntity){
-        verificationRepository.save(verificationEntity);
+    public void save(VerificationDto verificationDto){
+        verificationRepository.save(verificationMapper.fromDto(verificationDto));
     }
 
-    public void delete(VerificationEntity verificationEntity){
-        verificationRepository.delete(verificationEntity);
+    public void delete(VerificationDto verificationDto){
+        verificationRepository.delete(verificationMapper.fromDto(verificationDto));
     }
 }
 

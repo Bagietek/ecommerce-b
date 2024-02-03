@@ -21,11 +21,6 @@ import java.util.Optional;
 public class ClientController implements ClientApi {
 
     @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return ClientApi.super.getRequest();
-    }
-
-    @Override
     public ResponseEntity<Void> addFunds(AddFundsRequest addFundsRequest) {
         log.info("Founds update: {}", addFundsRequest.toString());
         return ResponseEntity.status(501).build();

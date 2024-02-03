@@ -8,6 +8,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.SellerApi;
 import pl.akademiaspecjalistowit.ecommerce.item.service.ItemService;
 import pl.akademiaspecjalistowit.model.AddItemRequest;
+import pl.akademiaspecjalistowit.model.UpdateItemPriceRequest;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -25,5 +26,9 @@ public class SellerController implements SellerApi {
         return ResponseEntity.ok().build();
     }
 
-
+    @Override
+    public ResponseEntity<Void> updateItemPrice(UpdateItemPriceRequest updateItemPriceRequest) {
+        itemService.updateItemPrice(updateItemPriceRequest);
+        return ResponseEntity.ok().build();
+    }
 }

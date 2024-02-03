@@ -36,7 +36,7 @@ public class ItemEntity {
 
     private String description;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryId;
 

@@ -27,6 +27,19 @@ public class ClientEntity {
         this.email = email;
     }
 
+    public ClientEntity(UUID technicalId, String accountCurrency, String accountBalance,
+                        String status, String email, String name,
+                        String surname, AddressEntity addressEntity) {
+        this.technicalId = technicalId;
+        this.accountCurrency = accountCurrency;
+        this.accountBalance = accountBalance;
+        this.status = status;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.addressEntity = addressEntity;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,7 +62,12 @@ public class ClientEntity {
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private UserEntity userEntity;
 
-    public void VerifyClient(){
-        this.status = ClientStatus.ACTIVATED.toString();
-    }
+    private String name;
+
+    private String surname;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    private AddressEntity addressEntity;
 }

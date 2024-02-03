@@ -4,16 +4,17 @@ import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
 import pl.akademiaspecjalistowit.model.AddItemRequest;
 import pl.akademiaspecjalistowit.model.Item;
+import pl.akademiaspecjalistowit.model.UpdateItemPriceRequest;
 
 import java.util.List;
 
 public interface ItemService {
 
-    List<Item> getAllItemsWithAmountAndCategory();
-
     void registerItem(AddItemRequest addItemRequest);
 
-    List<ItemView> getAllItemFromView();
+    List<Item> getAllItemFromView();
 
-    List<ItemView> getAllItemFromViewByCategory(String category);
+    void updateItemPrice(UpdateItemPriceRequest updateItemPriceRequest);
+
+    List<Item> getAllItemFromViewByCategory(String category);
 }

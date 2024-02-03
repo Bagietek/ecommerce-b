@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.ecommerce.email.model.Email;
+import pl.akademiaspecjalistowit.ecommerce.email.model.EmailBo;
 import pl.akademiaspecjalistowit.ecommerce.email.model.EmailInput;
 
 import java.util.UUID;
@@ -23,9 +23,10 @@ public class EmailServiceImpl implements EmailService{
     @Override
     @Async
     public void sendActivationMail(EmailInput emailInput){
-        // todo: emailInput -> email, validation
-        Email email = new Email(emailInput.getEmail());
-        SimpleMailMessage message = createActivationMessage(email.getEmail());
+        // todo: emailInput, email from openAPI Presentation layer -> emailBo Business layer -> emailEntity Data layer,
+        //  validation in constructor of business layer
+        EmailBo emailBo = new EmailBo(emailInput.getEmail());
+        SimpleMailMessage message = createActivationMessage(emailBo.getEmail());
         javaMailSender.send(message);
     }
 

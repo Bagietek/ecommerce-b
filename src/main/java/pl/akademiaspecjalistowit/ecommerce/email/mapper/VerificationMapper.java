@@ -2,8 +2,9 @@ package pl.akademiaspecjalistowit.ecommerce.email.mapper;
 
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.akademiaspecjalistowit.ecommerce.client.mapper.ClientMapper;
 import pl.akademiaspecjalistowit.ecommerce.email.entity.VerificationEntity;
-import pl.akademiaspecjalistowit.ecommerce.email.model.VerificationDto;
+import pl.akademiaspecjalistowit.ecommerce.email.model.VerificationBo;
 
 import java.util.Optional;
 
@@ -11,26 +12,26 @@ import java.util.Optional;
 @Service
 public class VerificationMapper {
 
-    public VerificationDto fromEntity(VerificationEntity verificationEntity){
-        return new VerificationDto(
+    public VerificationBo fromEntity(VerificationEntity verificationEntity){
+        return new VerificationBo(
                 verificationEntity.getId(),
-                verificationEntity.getClient(),
+                ClientMapper.boFromEntity(verificationEntity.getClient()),
                 verificationEntity.getToken()
         );
     }
 
-    public VerificationEntity fromDto(VerificationDto verificationDto){
-        if(Optional.ofNullable(verificationDto.getId()).isPresent()){
+    public VerificationEntity fromBo(VerificationBo verificationBo){
+        if(Optional.ofNullable(verificationBo.getId()).isPresent()){
             return new VerificationEntity(
-                    verificationDto.getId(),
-                    verificationDto.getToken(),
-                    verificationDto.getClientEntity()
+                    verificationBo.getId(),
+                    verificationBo.getToken(),
+                    ClientMapper.entityFromBo(verificationBo.getClientBo())
             );
         }
 
         return new VerificationEntity(
-                verificationDto.getToken(),
-                verificationDto.getClientEntity()
+                verificationBo.getToken(),
+                ClientMapper.entityFromBo(verificationBo.getClientBo())
         );
     }
 }

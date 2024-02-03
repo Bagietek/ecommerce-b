@@ -10,8 +10,8 @@ databaseChangeLog:
               ('Furniture');
             INSERT INTO item (technical_id, description, category_id, name, availability, price)
             VALUES
-              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'in-stock', 5.35),
-              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'in-stock', 9.99);
+              ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Hardcover', '1', 'Lords of the ring', 'AVAILABLE', 5.35),
+              ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 'Softcover', '1', 'Eragon', 'AVAILABLE', 9.99);
             INSERT INTO warehouse (technical_id, item_id, number_of_products)
             VALUES
               ('a50ac10b-58cc-4372-a567-0e02b2c3d479', 1, 20),

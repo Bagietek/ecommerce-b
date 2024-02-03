@@ -18,7 +18,7 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
     @GetMapping("/all/view")
-    public List<ItemView> findAllFromView(){
+    public List<Item> findAllFromView(){
         return itemService.getAllItemFromView();
     }
 }

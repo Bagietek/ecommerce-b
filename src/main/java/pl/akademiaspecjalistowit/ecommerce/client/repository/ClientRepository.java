@@ -5,11 +5,14 @@ import org.springframework.stereotype.Repository;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
-    public Optional<ClientEntity> getClientEntityByEmail(String email);
+    Optional<ClientEntity> getClientEntityByEmail(String email);
+
+    Optional<ClientEntity> getClientEntityByTechnicalId(UUID technicalId);
 }

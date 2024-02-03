@@ -5,19 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.model.ClientBo;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class VerificationDto {
-    public VerificationDto(ClientEntity clientEntity, UUID token){
-        this.clientEntity = clientEntity;
+public class VerificationBo {
+    public VerificationBo(ClientBo clientBo, UUID token){
+        this.clientBo = clientBo;
         this.token = token;
     }
 
     private Long id;
-    private ClientEntity clientEntity;
+    private ClientBo clientBo;
     private UUID token;
 }

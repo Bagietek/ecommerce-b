@@ -4,35 +4,29 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.WarehouseApi;
+import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.service.WarehouseService;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
-import pl.akademiaspecjalistowit.model.UpdateWarehousePriceRequest;
-
-import java.util.Optional;
+import pl.akademiaspecjalistowit.model.UpdateWarehouseStockRequest;
 
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/warehouse")
 public class WarehouseController implements WarehouseApi {
 
     private WarehouseService warehouseService;
 
-    @GetMapping("/{warehouseId}")
-    public WarehouseEntity getWarehouseStock(@PathVariable Long warehouseId){
+    @GetMapping("/warehouse/{warehouseId}")
+    public WarehouseBo getWarehouseStock(@PathVariable Long warehouseId){
         return warehouseService.getWarehouseStock(warehouseId);
     }
 
     @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return WarehouseApi.super.getRequest();
-    }
-
-    @Override
-    public ResponseEntity<Void> updateWarehousePrice(UpdateWarehousePriceRequest updateWarehousePriceRequest) {
-        log.info("Updating warehouse item price");
+    public ResponseEntity<Void> updateWarehouseStock(UpdateWarehouseStockRequest updateWarehouseStockRequest) {
+        warehouseService.updateWarehouseStock(updateWarehouseStockRequest);
         return ResponseEntity.ok().build();
     }
+
+
 }

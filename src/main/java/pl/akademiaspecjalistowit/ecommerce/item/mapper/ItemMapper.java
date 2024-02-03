@@ -1,40 +1,68 @@
 package pl.akademiaspecjalistowit.ecommerce.item.mapper;
 
-import lombok.NoArgsConstructor;
-import pl.akademiaspecjalistowit.ecommerce.item.dto.ItemDto;
-import pl.akademiaspecjalistowit.ecommerce.item.dto.ItemInput;
+import pl.akademiaspecjalistowit.ecommerce.category.mapper.CategoryMapper;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
-import pl.akademiaspecjalistowit.model.AddItemRequest;
+import pl.akademiaspecjalistowit.ecommerce.item.model.ItemAvailability;
+import pl.akademiaspecjalistowit.ecommerce.item.model.ItemBo;
+import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
 import pl.akademiaspecjalistowit.model.Item;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-@NoArgsConstructor
 public class ItemMapper {
 
-    public static List<Item> fromItemDto(List<ItemDto> itemDto){
-        List<Item> items = new ArrayList<>();
-        for(ItemDto itemDtos : itemDto){
-            Item currentItem = new Item();
-            currentItem.setName(itemDtos.getName());
-            currentItem.setAmount((int) itemDtos.getNumber_of_products());
-            currentItem.setPrice(itemDtos.getPrice());
-            currentItem.setDescription(itemDtos.getDescription());
-            currentItem.setCategories(itemDtos.getCategory());
-            items.add(currentItem);
+    public static ItemBo boFromEntity(ItemEntity item){
+        if (item == null){
+            return null;
         }
-        return items;
+
+        return new ItemBo(
+                item.getId(),
+                item.getTechnicalId(),
+                item.getDescription(),
+                CategoryMapper.boFromEntity(item.getCategoryId()),
+                item.getName(),
+                ItemAvailability.valueOf(item.getAvailability()),
+                item.getPrice()
+        );
     }
 
-    public static ItemInput fromGeneratedItemRequest(AddItemRequest item){
-        return new ItemInput(
-                item.getItem().getName(),
-                item.getItem().getDescription(),
-                item.getItem().getCategories(),
-                item.getItem().getPrice(),
-                item.getItem().getAmount()
+    public static ItemEntity entityFromBo(ItemBo itemBo){
+        if (itemBo == null){
+            return null;
+        }
+        return new ItemEntity(
+                itemBo.getId(),
+                itemBo.getTechnicalId(),
+                itemBo.getDescription(),
+                CategoryMapper.entityFromBo(itemBo.getCategoryBo()),
+                itemBo.getName(),
+                itemBo.getItemAvailability().toString(),
+                itemBo.getPrice()
         );
+    }
+
+    public static Item dtoFromBo(ItemBo itemBo){
+        if (itemBo == null){
+            return null;
+        }
+        Item item = new Item();
+        item.setDescription(itemBo.getDescription());
+        item.setPrice(itemBo.getPrice());
+        item.setAmount(item.getAmount());
+        item.setName(itemBo.getName());
+        item.setCategory(itemBo.getCategoryBo().getName());
+        return item;
+    }
+
+    public static Item itemFromItemView(ItemView itemView){
+        if (itemView == null){
+            return null;
+        }
+        Item item = new Item();
+        item.setName(itemView.getName());
+        item.setAmount(item.getAmount());
+        item.setPrice(itemView.getPrice());
+        item.setDescription(itemView.getDescription());
+        item.setCategory(itemView.getCategoryName());
+        return item;
     }
 }

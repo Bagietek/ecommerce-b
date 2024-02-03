@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
+import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -12,6 +13,4 @@ import java.util.UUID;
 public interface WarehouseRepository extends JpaRepository<WarehouseEntity, Long> {
 
     Optional<WarehouseEntity> findByTechnicalId(UUID technicalId);
-
-    Optional<WarehouseEntity> existsByItemId(ItemEntity itemId);
 }

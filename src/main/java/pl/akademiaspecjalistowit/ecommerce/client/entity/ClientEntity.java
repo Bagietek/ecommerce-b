@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.client.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import pl.akademiaspecjalistowit.ecommerce.client.model.ClientStatus;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
 
 import java.util.UUID;
@@ -24,6 +25,19 @@ public class ClientEntity {
         this.status = status;
         this.userEntity = userEntity;
         this.email = email;
+    }
+
+    public ClientEntity(UUID technicalId, String accountCurrency, String accountBalance,
+                        String status, String email, String name,
+                        String surname, AddressEntity addressEntity) {
+        this.technicalId = technicalId;
+        this.accountCurrency = accountCurrency;
+        this.accountBalance = accountBalance;
+        this.status = status;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.addressEntity = addressEntity;
     }
 
     @Id
@@ -47,4 +61,13 @@ public class ClientEntity {
     @JoinColumn(name = "user_entity_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private UserEntity userEntity;
+
+    private String name;
+
+    private String surname;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    private AddressEntity addressEntity;
 }

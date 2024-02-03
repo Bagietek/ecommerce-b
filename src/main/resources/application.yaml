@@ -14,3 +14,5 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
     show-summary: summary
+app:
+  credentialsPath: credentials.json

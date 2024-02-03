@@ -105,6 +105,44 @@ databaseChangeLog:
               - column:
                   name: user_entity_id
                   type: bigint
+              - column:
+                  name: name
+                  type: varchar(64)
+              - column:
+                  name: surname
+                  type: varchar(64)
+              - column:
+                  name: address_id
+                  type: bigint
+  - changeSet:
+      id: create-address-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(64)
+              - column:
+                  name: street
+                  type: varchar(64)
+              - column:
+                  name: postal_code
+                  type: varchar(16)
+              - column:
+                  name: house_number
+                  type: varchar(16)
+              - column:
+                  name: flat_number
+                  type: varchar(16)
   - changeSet:
       id: create-cart-table
       author: Bartosz Bartocha
@@ -176,6 +214,37 @@ databaseChangeLog:
                   name: client_id
                   type: bigint
   - changeSet:
+      id: create-verification-table
+      author: Bartosz Bartocha
+      changes:
+        - createTable:
+            tableName: verification_data
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: bigint
+              - column:
+                  name: token
+                  type: UUID
+  - changeSet:
+      id: add-foreign-key-to-client-id-in-verification_data-table
+      author: Bartosz Bartocha
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: verification_data
+            baseColumnNames: client_id
+            constraintName: client-foreing-key-to-verification
+            referencedTableName: client
+            referencedColumnNames: id
+            onUpdate: CASCADE
+  - changeSet:
       id: add-foreign-key-to-category-id-in-item-table
       author: Bartosz Bartocha
       changes:
@@ -241,6 +310,18 @@ databaseChangeLog:
             referencedTableName: client
             referencedColumnNames: id
             onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-address-id-in-client-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client
+            baseColumnNames: address_id
+            constraintName: address-foreign-key-to-client
+            referencedTableName: address
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
   - include:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:

@@ -1,8 +1,11 @@
 package pl.akademiaspecjalistowit.ecommerce.client.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.client.mapper.ClientMapper;
+import pl.akademiaspecjalistowit.ecommerce.client.model.ClientBo;
 
 import java.util.List;
 
@@ -11,6 +14,11 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService{
 
     private final ClientDataService clientDataService;
+
+    @Override
+    public ClientBo getClientBoByEmail(String email) {
+        return clientDataService.getClientBoByEmail(email);
+    }
 
     @Override
     public void deleteClient(Long clientId) {
@@ -28,7 +36,9 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public ClientEntity getClientByEmail(String email) {
-        return clientDataService.getClientByEmail(email);
+    @Transactional
+    public void verifyClient(ClientBo clientBo) {
+        clientBo.verifyClient();
+        clientDataService.update(clientBo);
     }
 }

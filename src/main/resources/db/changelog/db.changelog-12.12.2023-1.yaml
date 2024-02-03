@@ -3,15 +3,27 @@ databaseChangeLog:
       id: create-order-summary-view
       author: Bartosz Bartocha
       changes:
-        - sql: |
-            CREATE VIEW order_summary_view AS 
-            SELECT
-            o.technical_id,
-            o.currency,
-            o.order_date_time,
-            SUM(o.total_amount) AS total_amount_sum,
-            o.shipping_method,
-            o.status
-            FROM client_order o
-            GROUP BY o.technical_id, o.currency, o.order_date_time, o.shipping_method, o.status;
-
+        - createView:
+            viewName: order_summary
+            selectQuery: >
+              SELECT o.technical_id,
+              o.currency,
+              o.order_date_time,
+              SUM(o.total_amount) AS total_amount_sum,
+              o.shipping_method,
+              o.status
+              FROM client_order o
+              GROUP BY o.technical_id, o.currency, o.order_date_time, o.shipping_method, o.status;
+        - createView:
+            viewName: item_summary
+            selectQuery: >
+              SELECT
+              i.id AS id,
+              i.name AS name,
+              i.description AS description,
+              i.price AS price,
+              c.name AS category_name,
+              w.number_of_products as number_of_products
+              FROM item i
+              JOIN warehouse w ON i.id = w.item_id
+              JOIN category c ON c.id = i.category_id;

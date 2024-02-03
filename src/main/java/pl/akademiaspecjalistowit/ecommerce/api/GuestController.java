@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.GuestApi;
+import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
 import pl.akademiaspecjalistowit.ecommerce.item.service.ItemService;
 import pl.akademiaspecjalistowit.model.Item;
 
@@ -20,10 +21,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class GuestController implements GuestApi {
     private ItemService itemService;
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return GuestApi.super.getRequest();
-    }
 
     @Override
     public ResponseEntity<List<Item>> getItems() {
@@ -36,11 +33,10 @@ public class GuestController implements GuestApi {
             }
         }
 
-        List<Item> items = itemService.getAllItemsWithAmountAndCategory();
+        List<Item> items = itemService.getAllItemFromView();
 
         return ResponseEntity
                 .ok()
                 .body(items);
-        //return ResponseEntity.ok().build();
     }
 }

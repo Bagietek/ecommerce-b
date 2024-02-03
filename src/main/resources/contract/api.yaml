@@ -5,11 +5,11 @@ info:
 servers:
   - url: http://localhost:8080/
 paths:
-  /warehouse/update/price:
+  /seller/item/price:
     patch:
-      summary: Aktualizacja stanu magazynu
-      description: Metoda do aktualizacji ceny danego przedmiotu w magazynie
-      operationId: updateWarehousePrice
+      summary: Aktualizacja ceny przedmiotu
+      description: Metoda do aktualizacji ceny danego przedmiotu
+      operationId: updateItemPrice
       requestBody:
         required: true
         content:
@@ -23,7 +23,7 @@ paths:
                   type: string
       responses:
         '200':
-          description: Poprawnie zaktualizowano stan magazynu
+          description: Poprawnie zaktualizowano cenę przedmiotu
         '400':
           description: Niepoprawne dane
         '500':
@@ -292,7 +292,7 @@ components:
         description:
           type: string
           description: Opis przedmiotu
-        categories:
+        category:
           type: string
           description: Kategoria przedmiotu
         price:

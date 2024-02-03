@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface OrderSummaryRepository extends JpaRepository<ClientOrderEntity, UUID> {
-    @Query(value = "SELECT * FROM order_summary_view", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_summary", nativeQuery = true)
     List<OrderSummary> findSummaries();
 }

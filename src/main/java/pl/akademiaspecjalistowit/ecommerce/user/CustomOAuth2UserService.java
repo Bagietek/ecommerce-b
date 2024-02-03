@@ -11,8 +11,11 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import pl.akademiaspecjalistowit.ecommerce.client.model.ClientStatus;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientDataService;
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientEntity;
+import pl.akademiaspecjalistowit.ecommerce.email.model.EmailInput;
+import pl.akademiaspecjalistowit.ecommerce.email.service.EmailService;
+import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.AuthorityEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.model.UserPrincipal;
@@ -26,6 +29,7 @@ import static java.util.Objects.isNull;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserDataService userDataService;
     private final ClientDataService clientDataService;
+    private final EmailService emailService;
 
     @Override
     @SneakyThrows
@@ -63,12 +67,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ClientEntity clientEntity = new ClientEntity(UUID.randomUUID(),
                 "EUR",
                 "0",
-                "dormant",
+                ClientStatus.NOT_ACTIVATED.toString(),
                 user,
                 email
         );
         clientDataService.saveClient(clientEntity);
-
+        if(!email.equals("unknown")){
+            emailService.sendActivationMail(new EmailInput(email));
+        }
         return user;
     }
 }

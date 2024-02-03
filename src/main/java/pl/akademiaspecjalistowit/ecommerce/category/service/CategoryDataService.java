@@ -3,6 +3,8 @@ package pl.akademiaspecjalistowit.ecommerce.category.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.category.entity.CategoryEntity;
+import pl.akademiaspecjalistowit.ecommerce.category.mapper.CategoryMapper;
+import pl.akademiaspecjalistowit.ecommerce.category.model.CategoryBo;
 import pl.akademiaspecjalistowit.ecommerce.category.repository.CategoryRepository;
 
 import java.util.Optional;
@@ -20,10 +22,10 @@ public class CategoryDataService {
         categoryRepository.save(new CategoryEntity(category));
     }
 
-    public CategoryEntity saveAndReturn(String category){
+    public CategoryBo saveAndReturn(String category){
         CategoryEntity categoryEntity = new CategoryEntity(category);
         categoryRepository.save(categoryEntity);
-        return categoryEntity;
+        return CategoryMapper.boFromEntity(categoryEntity);
     }
 
     public boolean existsByName(String name){

@@ -10,7 +10,9 @@ public interface WarehouseService {
 
     WarehouseBo getWarehouseStock(Long warehouseId);
 
-    void processNewItem(ItemBo item, long amount);
+    void processNewItem(ItemBo item, Long amount, String technicalId);
 
     void updateWarehouseStock(UpdateWarehouseStockRequest updateWarehouseStockRequest);
+
+    void deleteByItem(ItemBo itemBo, String sellerTechnicalId);
 }

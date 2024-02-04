@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.ecommerce.api;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.ClientApi;
 import pl.akademiaspecjalistowit.api.GuestApi;
 import pl.akademiaspecjalistowit.api.SellerApi;
+import pl.akademiaspecjalistowit.ecommerce.client.service.ClientService;
 import pl.akademiaspecjalistowit.model.*;
 
 import java.util.List;
@@ -18,12 +20,19 @@ import java.util.Optional;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class ClientController implements ClientApi {
+    private final ClientService clientService;
+    @Override
+    public ResponseEntity<Void> addClientInformation(AddClientInformationRequest addClientInformationRequest) {
+        clientService.addInformation(addClientInformationRequest);
+        return ResponseEntity.ok().build();
+    }
 
     @Override
     public ResponseEntity<Void> addFunds(AddFundsRequest addFundsRequest) {
-        log.info("Founds update: {}", addFundsRequest.toString());
-        return ResponseEntity.status(501).build();
+        clientService.addFounds(addFundsRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -40,8 +49,8 @@ public class ClientController implements ClientApi {
 
     @Override
     public ResponseEntity<Void> registerClient(RegisterClientRequest registerClientRequest) {
-        log.info("Registering new client");
-        return ResponseEntity.status(501).build();
+        clientService.addClient(registerClientRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Override

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-order-summary-view
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createView:
             viewName: order_summary

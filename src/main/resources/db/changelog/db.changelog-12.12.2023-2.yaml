@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: add-example-data
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - sql: |
             INSERT INTO category (name)

@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.order.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -26,7 +26,7 @@ public class ClientOrderEntity {
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinColumn(name = "id")
     @Column(name = "item_id")
     private Set<ItemEntity> itemId;
@@ -48,7 +48,6 @@ public class ClientOrderEntity {
     private String status;
 
     @OneToOne
-    @JoinColumn(name = "id")
-    //@Column(name = "client_id")
+    @JoinColumn(name = "client_id")
     private ClientEntity clientId;
 }

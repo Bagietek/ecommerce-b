@@ -4,6 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemBo;
+import pl.akademiaspecjalistowit.ecommerce.seller.model.SellerBo;
+import pl.akademiaspecjalistowit.ecommerce.seller.service.SellerService;
+import pl.akademiaspecjalistowit.ecommerce.warehouse.exception.WarehouseAccessException;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 import pl.akademiaspecjalistowit.model.UpdateWarehouseStockRequest;
 
@@ -15,18 +18,31 @@ import java.util.UUID;
 public class WarehouseServiceImpl implements WarehouseService{
 
     private final WarehouseDataService warehouseDataService;
+    private final SellerService sellerService;
 
     public WarehouseBo getWarehouseStock(Long warehouseId) {
         return warehouseDataService.getWarehouse(warehouseId);
     }
 
-    public void processNewItem(ItemBo item, long amount){
+    public void processNewItem(ItemBo item, Long amount, String technicalId){
+        SellerBo sellerBo = sellerService.findSellerByTechId(UUID.fromString(technicalId));
         WarehouseBo warehouseBo = new WarehouseBo(
                 UUID.randomUUID(),
                 item,
-                amount
+                amount,
+                sellerBo
         );
         warehouseDataService.save(warehouseBo);
+    }
+
+    @Override
+    public void deleteByItem(ItemBo itemBo, String sellerTechnicalId) {
+        WarehouseBo warehouseBo = warehouseDataService.findByItem(itemBo);
+        if(warehouseBo.getSellerBo().getTechnicalId().toString().equals(sellerTechnicalId)){
+            warehouseDataService.deleteByItem(itemBo);
+            return;
+        }
+        throw new WarehouseAccessException();
     }
 
     @Override

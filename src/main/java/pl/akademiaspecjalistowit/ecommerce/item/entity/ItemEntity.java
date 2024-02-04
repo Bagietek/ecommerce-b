@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.akademiaspecjalistowit.ecommerce.category.entity.CategoryEntity;
+import pl.akademiaspecjalistowit.ecommerce.seller.entity.SellerEntity;
 
 import java.math.BigDecimal;
 import java.util.Set;

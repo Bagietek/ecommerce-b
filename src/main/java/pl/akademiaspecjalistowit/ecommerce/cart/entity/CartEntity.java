@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.cart.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -33,15 +33,16 @@ public class CartEntity {
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinColumn(name = "id")
+    @Column(name = "item_id")
     private Set<ItemEntity> itemId;
 
     @Column(name = "number_of_products")
     private Long numberOfProducts;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "client_id")
     private ClientEntity clientId;
 
     @Column(name = "promo_code")

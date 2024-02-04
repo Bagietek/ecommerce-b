@@ -13,6 +13,7 @@ import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
 import pl.akademiaspecjalistowit.ecommerce.item.service.ItemService;
 import pl.akademiaspecjalistowit.model.Item;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +24,9 @@ public class GuestController implements GuestApi {
     private ItemService itemService;
 
     @Override
-    public ResponseEntity<List<Item>> getItems() {
-        log.info("Returning all items");
+    public ResponseEntity<List<Item>> getItems(BigDecimal page, BigDecimal pageSize, BigDecimal minPrice, BigDecimal maxPrice, String category) {
 
+        // todo: debug code, delete later
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
@@ -33,10 +34,10 @@ public class GuestController implements GuestApi {
             }
         }
 
-        List<Item> items = itemService.getAllItemFromView();
-
+        List<Item> items = itemService.getItemsFromSearch(minPrice, maxPrice, category, page, pageSize);
         return ResponseEntity
                 .ok()
                 .body(items);
+
     }
 }

@@ -14,6 +14,15 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemView {
+
+    public ItemView(String name, String description, BigDecimal price, String categoryName, Integer numberOfProducts) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.categoryName = categoryName;
+        this.numberOfProducts = numberOfProducts;
+    }
+
     @Id
     private Long id;
 

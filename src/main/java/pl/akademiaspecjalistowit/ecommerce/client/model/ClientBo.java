@@ -3,26 +3,36 @@ package pl.akademiaspecjalistowit.ecommerce.client.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.akademiaspecjalistowit.ecommerce.client.currency.model.AccountCurrency;
+import pl.akademiaspecjalistowit.ecommerce.client.mapper.AddressMapper;
+import pl.akademiaspecjalistowit.ecommerce.user.entity.AuthorityEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
+import pl.akademiaspecjalistowit.model.AddClientInformationRequest;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class ClientBo {
-    public ClientBo(Long id, UUID technicalId, String accountCurrency, String accountBalance, ClientStatus status, String email) {
-        this.id = id;
-        this.technicalId = technicalId;
-        this.accountCurrency = accountCurrency;
-        this.accountBalance = accountBalance;
-        this.status = status;
+    public ClientBo(String email, String name, String surname, AddressBo addressBo) {
+        this.accountCurrency = AccountCurrency.PLN;
+        this.accountBalance = "0";
+        this.status = ClientStatus.NOT_ACTIVATED;
         this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.addressBo = addressBo;
     }
 
     private Long id;
     private UUID technicalId;
-    private String accountCurrency;
+    private AccountCurrency accountCurrency;
     private String accountBalance;
     private ClientStatus status;
     private String email;
@@ -34,5 +44,43 @@ public class ClientBo {
 
     public void verifyClient(){
         this.status = ClientStatus.ACTIVATED;
+    }
+
+    public void addFounds(BigDecimal amount){
+        BigDecimal currentBalance = new BigDecimal(this.accountBalance);
+        currentBalance = currentBalance.add(amount);
+        currentBalance = currentBalance.setScale(2, RoundingMode.HALF_DOWN);
+        this.accountBalance = currentBalance.toPlainString();
+    }
+
+    public void updateClientInformation(AddClientInformationRequest addClientInformationRequest){
+        this.name = addClientInformationRequest.getName();
+        this.surname = addClientInformationRequest.getSurname();
+        this.addressBo = AddressMapper.boFromAddress(addClientInformationRequest.getAddress());
+    }
+
+    private void grantNewTechnicalId(){
+        this.technicalId = UUID.randomUUID();
+    }
+
+    public void fillSecurityData(String password, String username){
+        grantNewTechnicalId();
+        this.userEntityId = new UserEntity(
+                grantAuthorities(),
+                hashPassword(password),
+                username
+        );
+    }
+    private Set<AuthorityEntity> grantAuthorities(){
+        Set<AuthorityEntity> authorityEntitySet = new HashSet<>();
+        authorityEntitySet.add(new AuthorityEntity(
+                "ROLE_CLIENT"
+        ));
+        return authorityEntitySet;
+    }
+
+    private String hashPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 }

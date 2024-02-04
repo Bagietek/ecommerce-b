@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.akademiaspecjalistowit.ecommerce.category.model.CategoryBo;
 import pl.akademiaspecjalistowit.ecommerce.item.exception.ItemInvalidDataException;
+import pl.akademiaspecjalistowit.ecommerce.seller.model.SellerBo;
 
 import java.math.BigDecimal;
 import java.util.UUID;

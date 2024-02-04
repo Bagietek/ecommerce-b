@@ -24,6 +24,12 @@ public class UserEntity implements UserDetails {
         this.providerId = providerId;
     }
 
+    public UserEntity(Set<AuthorityEntity> authorities, String password, String username) {
+        this.authorities = authorities;
+        this.password = password;
+        this.username = username;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

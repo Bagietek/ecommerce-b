@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-user-and-authority-entity-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: user_entity
@@ -64,3 +64,15 @@ databaseChangeLog:
             constraintName: client-user-entity-id-constraint
             onDelete: CASCADE
             onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-user-entity-in-seller-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: seller
+            baseColumnNames: user_entity_id
+            constraintName: user-entity-foreign-key-to-seller
+            referencedTableName: user_entity
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE

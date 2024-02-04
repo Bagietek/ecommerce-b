@@ -51,4 +51,18 @@ public class AddressMapper {
         address.setPostalCode(addressBo.getPostalCode());
         return address;
     }
+
+
+    public static AddressBo boFromAddress(Address address) {
+        if(address == null){
+            return null;
+        }
+        return new AddressBo(
+                address.getTown(),
+                address.getStreet(),
+                address.getPostalCode(),
+                address.getHouseNumber(),
+                address.getFlatNumber()
+        );
+    }
 }

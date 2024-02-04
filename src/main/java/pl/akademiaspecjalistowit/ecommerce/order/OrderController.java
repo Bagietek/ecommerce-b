@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientOrderEntity;
+import pl.akademiaspecjalistowit.ecommerce.order.entity.ClientOrderEntity;
 import pl.akademiaspecjalistowit.ecommerce.order.repository.OrderSummary;
 import pl.akademiaspecjalistowit.ecommerce.order.service.OrderService;
 

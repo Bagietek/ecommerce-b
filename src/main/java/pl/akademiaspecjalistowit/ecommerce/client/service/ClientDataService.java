@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.ecommerce.client.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.client.exception.ClientNotFoundException;
@@ -9,6 +10,7 @@ import pl.akademiaspecjalistowit.ecommerce.client.repository.ClientRepository;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,9 @@ public class ClientDataService{
         clientRepository.save(clientEntity);
     }
 
+    public void saveClient(ClientBo clientBo){
+        clientRepository.save(ClientMapper.entityFromBo(clientBo));
+    }
     public void deleteClient(Long clientId) {
         clientRepository.deleteById(clientId);
     }
@@ -36,7 +41,13 @@ public class ClientDataService{
         return ClientMapper.boFromEntity(clientEntity);
     }
 
+    @Transactional
     public void update(ClientBo client){
         clientRepository.save(ClientMapper.entityFromBo(client));
+    }
+
+    public ClientBo getClientBoByTechnicalId(UUID uuid) {
+        ClientEntity clientEntity = clientRepository.getClientEntityByTechnicalId(uuid).orElseThrow(ClientNotFoundException::new);
+        return ClientMapper.boFromEntity(clientEntity);
     }
 }

@@ -21,7 +21,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) -> authorize
                         /* todo: security layers, temporarily disabled for postman use
                         .requestMatchers("/guest/items").permitAll()*/
-                        .requestMatchers("/seller/register").hasRole("SELLER")
+                        //.requestMatchers("/seller/register").hasRole("SELLER")
                         //.requestMatchers("/seller/items/add").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())

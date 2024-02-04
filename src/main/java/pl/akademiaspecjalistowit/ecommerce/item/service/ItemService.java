@@ -6,10 +6,12 @@ import pl.akademiaspecjalistowit.model.AddItemRequest;
 import pl.akademiaspecjalistowit.model.Item;
 import pl.akademiaspecjalistowit.model.UpdateItemPriceRequest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ItemService {
 
+    List<Item> getItemsFromSearch(BigDecimal minPrice, BigDecimal maxPrice, String category, BigDecimal page, BigDecimal pageSize);
     void registerItem(AddItemRequest addItemRequest);
 
     List<Item> getAllItemFromView();
@@ -17,4 +19,6 @@ public interface ItemService {
     void updateItemPrice(UpdateItemPriceRequest updateItemPriceRequest);
 
     List<Item> getAllItemFromViewByCategory(String category);
+
+    void deleteItem(String itemTechnicalId, String sellerTechnicalId);
 }

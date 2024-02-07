@@ -14,15 +14,15 @@ import pl.akademiaspecjalistowit.ecommerce.user.CustomOAuth2UserService;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig{
     private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        /* todo: security layers, temporarily disabled for postman use
-                        .requestMatchers("/guest/items").permitAll()*/
-                        //.requestMatchers("/seller/register").hasRole("SELLER")
-                        //.requestMatchers("/seller/items/add").authenticated()
+                        // todo: security layers, temporarily disabled for postman use
+                        .requestMatchers("/client/cart/**").hasRole("CLIENT")
+                        .requestMatchers("/email/**").permitAll()
+                        .requestMatchers("/guest/items/**").permitAll()
                         .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth2 -> oauth2

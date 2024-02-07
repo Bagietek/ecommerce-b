@@ -7,6 +7,7 @@ import pl.akademiaspecjalistowit.model.AddFundsRequest;
 import pl.akademiaspecjalistowit.model.RegisterClientRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ClientService {
 
@@ -18,4 +19,6 @@ public interface ClientService {
     void verifyClient(ClientBo clientBo);
 
     void addClient(RegisterClientRequest registerClientRequest);
+
+    ClientBo findByTechnicalId(UUID technicalId);
 }

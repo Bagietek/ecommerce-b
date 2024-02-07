@@ -38,6 +38,5 @@ public class GuestController implements GuestApi {
         return ResponseEntity
                 .ok()
                 .body(items);
-
     }
 }

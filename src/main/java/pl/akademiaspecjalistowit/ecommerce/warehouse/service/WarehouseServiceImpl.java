@@ -24,6 +24,12 @@ public class WarehouseServiceImpl implements WarehouseService{
         return warehouseDataService.getWarehouse(warehouseId);
     }
 
+    @Override
+    public Long getWarehouseNumberOfProducts(ItemBo itemBo) {
+        WarehouseBo warehouseBo = warehouseDataService.findByItem(itemBo);
+        return warehouseBo.getNumberOfProducts();
+    }
+
     public void processNewItem(ItemBo item, Long amount, String technicalId){
         SellerBo sellerBo = sellerService.findSellerByTechId(UUID.fromString(technicalId));
         WarehouseBo warehouseBo = new WarehouseBo(

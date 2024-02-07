@@ -15,4 +15,6 @@ public interface WarehouseService {
     void updateWarehouseStock(UpdateWarehouseStockRequest updateWarehouseStockRequest);
 
     void deleteByItem(ItemBo itemBo, String sellerTechnicalId);
+
+    Long getWarehouseNumberOfProducts(ItemBo itemBo);
 }

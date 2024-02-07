@@ -44,6 +44,7 @@ public class ClientBo {
 
     public void verifyClient(){
         this.status = ClientStatus.ACTIVATED;
+        this.userEntityId.setAuthorities(this.grantAuthorities());
     }
 
     public void addFounds(BigDecimal amount){
@@ -66,7 +67,7 @@ public class ClientBo {
     public void fillSecurityData(String password, String username){
         grantNewTechnicalId();
         this.userEntityId = new UserEntity(
-                grantAuthorities(),
+                null, //grantAuthorities()
                 hashPassword(password),
                 username
         );

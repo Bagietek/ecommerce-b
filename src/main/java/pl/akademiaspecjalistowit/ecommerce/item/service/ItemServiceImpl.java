@@ -27,6 +27,11 @@ public class ItemServiceImpl implements ItemService{
     private final SellerService sellerService;
 
     @Override
+    public ItemBo findItemByTechId(UUID technicalId) {
+        return itemDataService.findByTechId(technicalId);
+    }
+
+    @Override
     public List<Item> getItemsFromSearch(BigDecimal minPrice, BigDecimal maxPrice, String category, BigDecimal page, BigDecimal pageSize) {
         return itemDataService.getItemsFromSearch(minPrice, maxPrice, category, page, pageSize)
                 .stream()

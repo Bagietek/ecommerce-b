@@ -54,6 +54,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public ClientBo findByTechnicalId(UUID technicalId) {
+        return clientDataService.getClientBoByTechnicalId(technicalId);
+    }
+
+    @Override
     public void deleteClient(Long clientId) {
         clientDataService.deleteClient(clientId);
     }

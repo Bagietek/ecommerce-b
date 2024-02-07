@@ -11,11 +11,14 @@ import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.ClientApi;
 import pl.akademiaspecjalistowit.api.GuestApi;
 import pl.akademiaspecjalistowit.api.SellerApi;
+import pl.akademiaspecjalistowit.ecommerce.cart.service.CartService;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientService;
+import pl.akademiaspecjalistowit.ecommerce.order.service.OrderService;
 import pl.akademiaspecjalistowit.model.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @RestController
@@ -23,6 +26,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ClientController implements ClientApi {
     private final ClientService clientService;
+    private final CartService cartService;
+    private final OrderService orderService;
     @Override
     public ResponseEntity<Void> addClientInformation(AddClientInformationRequest addClientInformationRequest) {
         clientService.addInformation(addClientInformationRequest);
@@ -36,15 +41,18 @@ public class ClientController implements ClientApi {
     }
 
     @Override
-    public ResponseEntity<Void> addItemsToCart(UpdateWarehouseStockRequest updateWarehouseStockRequest) {
-        log.info("Adding items to cart");
-        return ResponseEntity.status(501).build();
+    public ResponseEntity<Void> addItemsToCart(AddItemsToCartRequest addItemsToCartRequest) {
+        cartService.addItem(addItemsToCartRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteItemsFromCart(String technicalId) {
-        log.info("Deleting items from cart");
-        return ResponseEntity.status(501).build();
+    public ResponseEntity<GetAllCartItems200Response> getAllCartItems(String technicalId) {
+        GetAllCartItems200Response response = cartService.getClientCart(technicalId);
+
+        return ResponseEntity
+                .ok()
+                .body(response);
     }
 
     @Override
@@ -54,8 +62,16 @@ public class ClientController implements ClientApi {
     }
 
     @Override
+    public ResponseEntity<Void> deleteItemsFromCart(String technicalId) {
+        log.info("Deleting items from cart");
+        cartService.deleteItem(UUID.fromString(technicalId));
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
     public ResponseEntity<SubmitOrderFromCart200Response> submitOrderFromCart(SubmitOrderFromCartRequest submitOrderFromCartRequest) {
-        log.info("Submitting order");
-        return ResponseEntity.status(501).build();
+        // returning order uuid
+        SubmitOrderFromCart200Response response = orderService.submitOrder(submitOrderFromCartRequest);
+        return ResponseEntity.ok().body(response);
     }
 }

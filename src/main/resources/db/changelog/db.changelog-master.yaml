@@ -222,6 +222,9 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: order_details_id
+                  type: bigint
+              - column:
                   name: technical_id
                   type: UUID
               - column:
@@ -231,13 +234,30 @@ databaseChangeLog:
                   name: total_amount
                   type: bigint
               - column:
-                  name: currency
-                  type: varchar(32)
+                  name: client_id
+                  type: bigint
+  - changeSet:
+      id: create-order-details-table
+      author: Bartek
+      changes:
+        - createTable:
+            tableName: order_details
+            columns:
               - column:
-                  name: order_date_time
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: uuid
+              - column:
+                  name: order_date
                   type: datetime
               - column:
-                  name: delivery_date_time
+                  name: delivery_date
                   type: datetime
               - column:
                   name: shipping_method
@@ -246,8 +266,8 @@ databaseChangeLog:
                   name: status
                   type: varchar(64)
               - column:
-                  name: client_id
-                  type: bigint
+                  name: promo_code
+                  type: varchar(32)
   - changeSet:
       id: create-verification-table
       author: Bartek
@@ -381,6 +401,16 @@ databaseChangeLog:
             referencedColumnNames: id
             onUpdate: CASCADE
             onDelete: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-client-details-id-in-client-order-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client_order
+            baseColumnNames: order_details_id
+            constraintName: order-details-foreign-key-to-client-order
+            referencedTableName: order_details
+            referencedColumnNames: id
   - include:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:

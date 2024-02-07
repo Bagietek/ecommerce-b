@@ -22,7 +22,6 @@ public class ItemDataService {
     private final ItemRepository itemRepository;
     private final ItemViewRepository itemViewRepository;
 
-
     public List<ItemView> findAllItemsWithAmountByView(){
         return itemViewRepository.findAll();
     }
@@ -81,6 +80,6 @@ public class ItemDataService {
     }
 
     private PageRequest getDefaultSearchPagination(){
-        return PageRequest.of(0,5, Sort.by("name"));
+        return PageRequest.of(0,25, Sort.by("name"));
     }
 }

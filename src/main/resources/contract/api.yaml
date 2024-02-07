@@ -109,6 +109,8 @@ paths:
               properties:
                 email:
                   type: string
+                shippingMethod:
+                  type: string
       responses:
         '200':
           description: Poprawnie zatwierdzono zamówienie
@@ -153,13 +155,40 @@ paths:
             schema:
               type: object
               properties:
-                technicalId:
+                clientTechnicalId:
+                  type: string
+                itemTechnicalId:
                   type: string
                 amount:
                   type: integer
       responses:
         '200':
           description: Poprawnie dodano przedmiot do koszyka
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
+  /client/cart/view/{technicalId}:
+    get:
+      summary: Pobieranie wszystkich przedmiotów z koszyka danego klienta
+      description: Metoda do pobrania wszystkich przedmiotów z koszyka danego klienta za pomocą jego technical id
+      operationId: getAllCartItems
+      parameters:
+        - name: technicalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Poprawnie pobrano przedmioty z koszyka
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cart:
+                    $ref: '#/components/schemas/Cart'
         '400':
           description: Niepoprawne dane
         '500':
@@ -426,3 +455,12 @@ components:
         currency:
           type: string
           description: Waluta PLN
+    Cart:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        promoCode:
+          type: string

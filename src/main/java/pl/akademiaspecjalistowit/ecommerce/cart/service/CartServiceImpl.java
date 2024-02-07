@@ -9,6 +9,7 @@ import pl.akademiaspecjalistowit.ecommerce.cart.exception.CartCleanupException;
 import pl.akademiaspecjalistowit.ecommerce.cart.mapper.CartMapper;
 import pl.akademiaspecjalistowit.ecommerce.cart.model.CartBo;
 import pl.akademiaspecjalistowit.ecommerce.cart.model.CartView;
+import pl.akademiaspecjalistowit.ecommerce.client.exception.ClientNotFoundException;
 import pl.akademiaspecjalistowit.ecommerce.client.model.ClientBo;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientService;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemBo;
@@ -63,6 +64,14 @@ public class CartServiceImpl implements CartService{
     @Override
     public void deleteClientCart(UUID clientTechnicalId) {
         cartDataService.deleteAllByClient(clientService.findByTechnicalId(clientTechnicalId));
+    }
+    @Override
+    public void deleteClientCart(List<CartBo> cartBos) {
+        ClientBo clientBo = cartBos.stream()
+                .map(CartBo::getClientBo)
+                .findFirst()
+                .orElseThrow(ClientNotFoundException::new);
+        cartDataService.deleteAllByClient(clientBo);
     }
 
     private void scheduleDeletion(UUID clientTechnicalId) {

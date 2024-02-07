@@ -2,9 +2,12 @@ package pl.akademiaspecjalistowit.ecommerce.warehouse.service;
 
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemBo;
+import pl.akademiaspecjalistowit.ecommerce.order.model.OrderBo;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 import pl.akademiaspecjalistowit.model.UpdateWarehouseStockRequest;
+
+import java.util.List;
 
 public interface WarehouseService {
 
@@ -17,4 +20,6 @@ public interface WarehouseService {
     void deleteByItem(ItemBo itemBo, String sellerTechnicalId);
 
     Long getWarehouseNumberOfProducts(ItemBo itemBo);
+
+    void changeWarehouseStockByOrder(List<OrderBo> orderBos);
 }

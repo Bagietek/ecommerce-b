@@ -20,9 +20,11 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
                         // todo: security layers, temporarily disabled for postman use
-                        .requestMatchers("/client/cart/**").hasRole("CLIENT")
+                        // account activation check is done by role granting
+                        //.requestMatchers("/client/cart/**").hasRole("CLIENT")
                         .requestMatchers("/email/**").permitAll()
                         .requestMatchers("/guest/items/**").permitAll()
+                        .requestMatchers("/client/register").permitAll()
                         .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .oauth2Login(oauth2 -> oauth2

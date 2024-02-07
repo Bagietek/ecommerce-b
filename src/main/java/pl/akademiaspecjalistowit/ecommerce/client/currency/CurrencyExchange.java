@@ -40,11 +40,11 @@ public class CurrencyExchange {
         return exchangeFromPln(exchangedAmount,accountSelectedCurrency);
     }
 
-    private BigDecimal exchangeIntoPln(BigDecimal amount, AccountCurrency accountCurrency){
+    public BigDecimal exchangeIntoPln(BigDecimal amount, AccountCurrency accountCurrency){
         return amount.multiply(currencyExchangeRatesIntoPln.get(accountCurrency));
     }
 
-    private BigDecimal exchangeFromPln(BigDecimal amount, AccountCurrency accountCurrency){
+    public BigDecimal exchangeFromPln(BigDecimal amount, AccountCurrency accountCurrency){
         return amount.multiply(currencyExchangeFromPln.get(accountCurrency));
     }
 }

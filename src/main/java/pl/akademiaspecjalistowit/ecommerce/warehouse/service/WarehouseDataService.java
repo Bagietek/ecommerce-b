@@ -12,8 +12,10 @@ import pl.akademiaspecjalistowit.ecommerce.warehouse.mapper.WarehouseMapper;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.repository.WarehouseRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,6 +33,14 @@ public class WarehouseDataService {
         return WarehouseMapper.boFromEntity(
                 warehouseRepository.findByTechnicalId(technicalId).orElseThrow(WarehouseNotFoundException::new)
                 );
+    }
+
+    @Transactional
+    public void updateStockByOrder(List<WarehouseBo> warehouseBos){
+        warehouseRepository.saveAll(warehouseBos.stream()
+                .map(WarehouseMapper::entityFromBo)
+                .collect(Collectors.toSet())
+        );
     }
 
     public void save(WarehouseBo warehouse){

@@ -411,6 +411,8 @@ databaseChangeLog:
             constraintName: order-details-foreign-key-to-client-order
             referencedTableName: order_details
             referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
   - include:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:

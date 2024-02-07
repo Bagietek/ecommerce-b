@@ -59,6 +59,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public void update(ClientBo clientBo) {
+        clientDataService.update(clientBo);
+    }
+
+    @Override
     public void deleteClient(Long clientId) {
         clientDataService.deleteClient(clientId);
     }

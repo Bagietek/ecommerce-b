@@ -21,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @AllArgsConstructor
 public class GuestController implements GuestApi {
-    private ItemService itemService;
+    private final ItemService itemService;
 
     @Override
     public ResponseEntity<List<Item>> getItems(BigDecimal page, BigDecimal pageSize, BigDecimal minPrice, BigDecimal maxPrice, String category) {

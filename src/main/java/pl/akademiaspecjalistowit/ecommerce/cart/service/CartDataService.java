@@ -31,6 +31,13 @@ public class CartDataService {
         cartRepository.save(cartEntity);
     }
 
+    public void deleteCart(List<CartBo> cartBos){
+        cartRepository.deleteAll(cartBos.stream()
+                .map(CartMapper::entityFromBo)
+                .collect(Collectors.toSet())
+        );
+    }
+
     public List<CartBo> getClientCartBo(ClientBo clientBo){
         return cartRepository.getAllByClientId(ClientMapper.entityFromBo(clientBo))
                 .stream()

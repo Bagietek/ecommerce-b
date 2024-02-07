@@ -12,7 +12,6 @@ public class OrderMapper {
             return null;
         }
         return new OrderBo(
-                orderEntity.getId(),
                 orderEntity.getTechnicalId(),
                 ItemMapper.boFromEntity(orderEntity.getItemId()),
                 Math.toIntExact(orderEntity.getTotalAmount()),
@@ -26,7 +25,6 @@ public class OrderMapper {
             return null;
         }
         return new OrderEntity(
-                orderBo.getId(),
                 OrderDetailsMapper.entityFromBo(orderBo.getOrderDetailsBo()),
                 orderBo.getTechnicalId(),
                 ItemMapper.entityFromBo(orderBo.getItemBo()),

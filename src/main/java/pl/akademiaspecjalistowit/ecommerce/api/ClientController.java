@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import pl.akademiaspecjalistowit.api.ClientApi;
 import pl.akademiaspecjalistowit.api.GuestApi;
+import pl.akademiaspecjalistowit.api.OrderApi;
 import pl.akademiaspecjalistowit.api.SellerApi;
 import pl.akademiaspecjalistowit.ecommerce.cart.service.CartService;
 import pl.akademiaspecjalistowit.ecommerce.client.service.ClientService;
@@ -24,10 +25,16 @@ import java.util.UUID;
 @RestController
 @Slf4j
 @AllArgsConstructor
-public class ClientController implements ClientApi {
+public class ClientController implements ClientApi{
     private final ClientService clientService;
     private final CartService cartService;
     private final OrderService orderService;
+
+    @Override
+    public Optional<NativeWebRequest> getRequest() {
+        return ClientApi.super.getRequest();
+    }
+
     @Override
     public ResponseEntity<Void> addClientInformation(AddClientInformationRequest addClientInformationRequest) {
         clientService.addInformation(addClientInformationRequest);

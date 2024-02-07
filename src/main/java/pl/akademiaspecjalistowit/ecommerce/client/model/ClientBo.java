@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.akademiaspecjalistowit.ecommerce.client.currency.model.AccountCurrency;
+import pl.akademiaspecjalistowit.ecommerce.client.exception.ClientFundsException;
 import pl.akademiaspecjalistowit.ecommerce.client.mapper.AddressMapper;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.AuthorityEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
@@ -83,5 +84,16 @@ public class ClientBo {
     private String hashPassword(String password){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
+    }
+
+    private void detractFounds(BigDecimal summedOrder) {
+        BigDecimal currentBalance = new BigDecimal(this.accountBalance);
+        currentBalance = currentBalance.subtract(summedOrder);
+        currentBalance = currentBalance.setScale(2, RoundingMode.HALF_DOWN);
+        this.accountBalance = currentBalance.toPlainString();
+    }
+
+    public void updateClientFunds(BigDecimal summedOrder, BigDecimal exchangedClientFunds){
+        detractFounds(summedOrder);
     }
 }

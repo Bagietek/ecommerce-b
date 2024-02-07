@@ -16,6 +16,8 @@ public interface CartService {
 
     void deleteClientCart(UUID clientTechnicalId);
 
+    void deleteClientCart(List<CartBo> cartBos);
+
     GetAllCartItems200Response getClientCart(String technicalId);
 
     List<CartBo> getClientCartBo(ClientBo clientBo);

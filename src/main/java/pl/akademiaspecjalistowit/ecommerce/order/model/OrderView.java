@@ -20,15 +20,6 @@ import java.util.UUID;
 @Table(name = "order_summary")
 public class OrderView {
 
-    public OrderView(UUID technicalId, Date orderDate, Date deliveryDate, Integer amount, String shippingMethod, String orderState) {
-        this.technicalId = technicalId;
-        this.orderDate = orderDate;
-        this.deliveryDate = deliveryDate;
-        this.amount = amount;
-        this.shippingMethod = shippingMethod;
-        this.orderState = orderState;
-    }
-
     // never to use
     @Id
     private Long id;
@@ -43,6 +34,14 @@ public class OrderView {
     private Date deliveryDate;
 
     private Integer amount;
+
+    private Long price;
+
+    @Column(name = "description")
+    private String itemDescription;
+
+    @Column(name = "name")
+    private String itemName;
 
     @Column(name = "shipping_method")
     private String shippingMethod;

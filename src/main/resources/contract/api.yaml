@@ -70,6 +70,24 @@ paths:
           description: Niepoprawne dane
         '500':
           description: Błąd serwera
+  /order:
+    get:
+      summary: Pobranie wszystkich zamówień
+      description: Metoda do pobrania wszystkich zamówień, wymaga odpowiedniej roli
+      operationId: getAllOrders
+      responses:
+        '200':
+          description: Poprawnie znaleziono zamówienie
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Niepoprawne dane
+        '500':
+          description: Błąd serwera
   /order/{technicalId}:
     get:
       summary: Znalezienie zamówienia
@@ -378,8 +396,6 @@ components:
       type: object
       properties:
         technicalId:
-          type: string
-        currency:
           type: string
         orderDateTime:
           type: string

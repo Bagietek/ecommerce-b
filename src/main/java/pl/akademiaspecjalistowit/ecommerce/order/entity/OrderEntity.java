@@ -30,14 +30,14 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "order_details_id")
     private OrderDetailsEntity orderDetailsEntity;
 
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "item_id")
     private ItemEntity itemId;
 

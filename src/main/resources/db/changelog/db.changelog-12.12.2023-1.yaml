@@ -12,11 +12,15 @@ databaseChangeLog:
               d.order_date AS order_date,
               d.delivery_date AS delivery_date,
               o.total_amount AS amount,
+              i.price,
+              i.name,
+              i.description,
               d.shipping_method,
               d.status,
               d.promo_code
               FROM client_order o
-              JOIN order_details d ON o.order_details_id = d.id;
+              JOIN order_details d ON o.order_details_id = d.id
+              JOIN item i ON o.item_id = i.id;
         - createView:
             viewName: item_summary
             selectQuery: >

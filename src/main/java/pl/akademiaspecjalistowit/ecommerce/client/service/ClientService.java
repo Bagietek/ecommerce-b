@@ -21,4 +21,6 @@ public interface ClientService {
     void addClient(RegisterClientRequest registerClientRequest);
 
     ClientBo findByTechnicalId(UUID technicalId);
+
+    void update(ClientBo clientBo);
 }

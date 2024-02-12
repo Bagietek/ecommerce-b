@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.ecommerce.order.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.ecommerce.cart.model.CartBo;
@@ -27,9 +28,12 @@ public class OrderServiceImpl implements OrderService{
     private final WarehouseService warehouseService;
 
     @Override
+    @Transactional
     public SubmitOrderFromCart200Response submitOrder(SubmitOrderFromCartRequest request) {
+        // todo: reverse currency exchange: Item price into clients AccountCurrency
         UUID orderTechnicalId = UUID.randomUUID();
         ClientBo clientBo = clientService.getClientBoByEmail(request.getEmail());
+        // clientOrderService
         List<CartBo> clientCart = cartService.getClientCartBo(clientBo);
         BigDecimal summedPrice = sumOrderPrice(clientCart);
         BigDecimal clientExchangedFunds = currencyExchange.exchangeIntoPln(new BigDecimal(clientBo.getAccountBalance()), clientBo.getAccountCurrency());

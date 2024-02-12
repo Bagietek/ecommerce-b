@@ -13,6 +13,9 @@ import java.util.UUID;
 public class WarehouseBo {
 
     public WarehouseBo(UUID technicalId, ItemBo itemBo, Long numberOfProducts, SellerBo sellerBo) {
+        if(numberOfProducts <= 0){
+            throw new WarehouseInputDataException();
+        }
         this.technicalId = technicalId;
         this.itemBo = itemBo;
         this.numberOfProducts = numberOfProducts;

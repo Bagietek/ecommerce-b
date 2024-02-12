@@ -21,4 +21,4 @@ public interface ItemViewRepository extends JpaRepository<ItemView, Long> {
                               @Param("maxPrice") BigDecimal maxPrice,
                               @Param("category") String category,
                               Pageable pageable);
-}
+    }

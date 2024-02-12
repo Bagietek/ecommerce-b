@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 public class ItemServiceImpl implements ItemService{
     private final ItemDataService itemDataService;
     private final WarehouseService warehouseService;
-    private final SellerService sellerService;
 
     @Override
     public ItemBo findItemByTechId(UUID technicalId) {
@@ -34,14 +33,6 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<Item> getItemsFromSearch(BigDecimal minPrice, BigDecimal maxPrice, String category, BigDecimal page, BigDecimal pageSize) {
         return itemDataService.getItemsFromSearch(minPrice, maxPrice, category, page, pageSize)
-                .stream()
-                .map(ItemMapper::itemFromItemView)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Item> getAllItemFromViewByCategory(String category) {
-        return itemDataService.findAllItemsWithAmountByCategory(category)
                 .stream()
                 .map(ItemMapper::itemFromItemView)
                 .collect(Collectors.toList());

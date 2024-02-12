@@ -20,8 +20,6 @@ public interface ItemService {
 
     void updateItemPrice(UpdateItemPriceRequest updateItemPriceRequest);
 
-    List<Item> getAllItemFromViewByCategory(String category);
-
     void deleteItem(String itemTechnicalId, String sellerTechnicalId);
 
     ItemBo findItemByTechId(UUID technicalId);

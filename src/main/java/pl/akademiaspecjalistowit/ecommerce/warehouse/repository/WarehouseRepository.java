@@ -18,4 +18,6 @@ public interface WarehouseRepository extends JpaRepository<WarehouseEntity, Long
     void deleteByItemId(ItemEntity item);
 
     Optional<WarehouseEntity> findByItemId(ItemEntity item);
+
+    Optional<WarehouseEntity> findBySellerEntity(SellerEntity sellerEntity);
 }

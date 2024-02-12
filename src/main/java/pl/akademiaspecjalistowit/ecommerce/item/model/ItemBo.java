@@ -14,6 +14,9 @@ import java.util.UUID;
 public class ItemBo {
 
     public ItemBo(UUID technicalId, String description, CategoryBo categoryBo, String name, ItemAvailability itemAvailability, BigDecimal price) {
+        if(price.compareTo(BigDecimal.ZERO) <= 0){
+            throw new ItemInvalidDataException();
+        }
         this.technicalId = technicalId;
         this.description = description;
         this.categoryBo = categoryBo;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.akademiaspecjalistowit.ecommerce.client.currency.model.AccountCurrency;
 import pl.akademiaspecjalistowit.ecommerce.client.exception.ClientFundsException;
+import pl.akademiaspecjalistowit.ecommerce.client.exception.ClientValidationException;
 import pl.akademiaspecjalistowit.ecommerce.client.mapper.AddressMapper;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.AuthorityEntity;
 import pl.akademiaspecjalistowit.ecommerce.user.entity.UserEntity;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @Getter
 public class ClientBo {
     public ClientBo(String email, String name, String surname, AddressBo addressBo) {
+        verifyEmail(email);
         this.accountCurrency = AccountCurrency.PLN;
         this.accountBalance = "0";
         this.status = ClientStatus.NOT_ACTIVATED;
@@ -41,7 +43,6 @@ public class ClientBo {
     private String surname;
     private AddressBo addressBo;
     private UserEntity userEntityId;
-
 
     public void verifyClient(){
         this.status = ClientStatus.ACTIVATED;
@@ -95,5 +96,12 @@ public class ClientBo {
 
     public void updateClientFunds(BigDecimal summedOrder, BigDecimal exchangedClientFunds){
         detractFounds(summedOrder);
+    }
+
+    private void verifyEmail(String email){
+        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if(!email.matches(emailPattern)){
+            throw new ClientValidationException();
+        }
     }
 }

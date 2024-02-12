@@ -31,11 +31,6 @@ public class ClientController implements ClientApi{
     private final OrderService orderService;
 
     @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return ClientApi.super.getRequest();
-    }
-
-    @Override
     public ResponseEntity<Void> addClientInformation(AddClientInformationRequest addClientInformationRequest) {
         clientService.addInformation(addClientInformationRequest);
         return ResponseEntity.ok().build();

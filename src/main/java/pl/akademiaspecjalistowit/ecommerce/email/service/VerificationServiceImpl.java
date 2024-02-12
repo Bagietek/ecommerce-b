@@ -35,7 +35,4 @@ public class VerificationServiceImpl implements VerificationService{
         verificationDataService.delete(verificationBo);
         return email;
     }
-
-
-
 }

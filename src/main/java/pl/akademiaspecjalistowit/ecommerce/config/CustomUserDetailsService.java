@@ -19,7 +19,6 @@ public class CustomUserDetailsService implements org.springframework.security.co
     private final ClientDataService clientDataService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // todo: get authorities from db
         ClientEntity clientEntity = clientDataService.getClientByEmail(username);
         if(clientEntity == null){
             throw new UsernameNotFoundException("User not found");

@@ -35,6 +35,7 @@ public class WarehouseServiceImpl implements WarehouseService{
     }
 
     @Override
+    @Transactional
     public void changeWarehouseStockByOrder(List<OrderBo> orderBos) {
         List<ItemBo> itemList = orderBos.stream()
                 .map(OrderBo::getItemBo)

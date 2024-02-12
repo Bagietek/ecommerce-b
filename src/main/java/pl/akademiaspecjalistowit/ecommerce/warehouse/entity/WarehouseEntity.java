@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
+import pl.akademiaspecjalistowit.ecommerce.seller.entity.SellerEntity;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.exception.WarehouseInputDataException;
 
 import java.util.UUID;
@@ -17,11 +18,11 @@ import java.util.UUID;
 @Table(name = "warehouse")
 public class WarehouseEntity {
 
-    public WarehouseEntity(UUID technicalId, ItemEntity item, long amount){
-        validateAmount(amount);
+    public WarehouseEntity(UUID technicalId, ItemEntity item, Long amount, SellerEntity sellerEntity){
         this.itemId = item;
         this.numberOfProducts = amount;
         this.technicalId = technicalId;
+        this.sellerEntity = sellerEntity;
     }
 
     @Id
@@ -38,9 +39,8 @@ public class WarehouseEntity {
     @Column(name = "number_of_products")
     private Long numberOfProducts;
 
-    private void validateAmount(long amount){
-        if(amount <= 0){
-            throw new WarehouseInputDataException();
-        }
-    }
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    private SellerEntity sellerEntity;
+
 }

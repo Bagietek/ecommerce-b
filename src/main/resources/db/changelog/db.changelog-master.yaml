@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
         id: create-category-table
-        author: Bartosz Bartocha
+        author: Bartek
         changes:
           - createTable:
               tableName: category
@@ -18,7 +18,7 @@ databaseChangeLog:
                     type: varchar(64)
   -  changeSet:
        id:  create-item-table
-       author:  Bartosz Bartocha
+       author:  Bartek
        changes:
          -  createTable:
               tableName:  item
@@ -52,7 +52,7 @@ databaseChangeLog:
                     type: decimal
   - changeSet:
       id: create-warehouse-table
-      author:  Bartosz Bartocha
+      author:  Bartek
       changes:
         - createTable:
             tableName: warehouse
@@ -73,9 +73,12 @@ databaseChangeLog:
               - column:
                   name: number_of_products
                   type: bigint
+              - column:
+                  name: seller_id
+                  type: bigint
   - changeSet:
       id: create-client-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: client
@@ -115,8 +118,40 @@ databaseChangeLog:
                   name: address_id
                   type: bigint
   - changeSet:
+      id: create-seller-table
+      author: Bartek
+      changes:
+        - createTable:
+            tableName: seller
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: UUID
+              - column:
+                  name: user_entity_id
+                  type: bigint
+              - column:
+                  name: company_name
+                  type: varchar(64)
+              - column:
+                  name: email
+                  type: varchar(128)
+              - column:
+                  name: address_id
+                  type: bigint
+              - column:
+                  name: status
+                  type: varchar(64)
+  - changeSet:
       id: create-address-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: address
@@ -145,7 +180,7 @@ databaseChangeLog:
                   type: varchar(16)
   - changeSet:
       id: create-cart-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: cart
@@ -174,7 +209,7 @@ databaseChangeLog:
                   type: varchar(32)
   - changeSet:
       id: create-client-order-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: client_order
@@ -187,6 +222,9 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: order_details_id
+                  type: bigint
+              - column:
                   name: technical_id
                   type: UUID
               - column:
@@ -196,13 +234,30 @@ databaseChangeLog:
                   name: total_amount
                   type: bigint
               - column:
-                  name: currency
-                  type: varchar(32)
+                  name: client_id
+                  type: bigint
+  - changeSet:
+      id: create-order-details-table
+      author: Bartek
+      changes:
+        - createTable:
+            tableName: order_details
+            columns:
               - column:
-                  name: order_date_time
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technical_id
+                  type: uuid
+              - column:
+                  name: order_date
                   type: datetime
               - column:
-                  name: delivery_date_time
+                  name: delivery_date
                   type: datetime
               - column:
                   name: shipping_method
@@ -211,11 +266,11 @@ databaseChangeLog:
                   name: status
                   type: varchar(64)
               - column:
-                  name: client_id
-                  type: bigint
+                  name: promo_code
+                  type: varchar(32)
   - changeSet:
       id: create-verification-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: verification_data
@@ -235,78 +290,78 @@ databaseChangeLog:
                   type: UUID
   - changeSet:
       id: add-foreign-key-to-client-id-in-verification_data-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: verification_data
             baseColumnNames: client_id
-            constraintName: client-foreing-key-to-verification
+            constraintName: client-foreign-key-to-verification
             referencedTableName: client
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-category-id-in-item-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: item
             baseColumnNames: category_id
-            constraintName: category-foreing-key-to-item
+            constraintName: category-foreign-key-to-item
             referencedTableName: category
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-item-id-in-warehouse-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: warehouse
             baseColumnNames: item_id
-            constraintName: item-foreing-key-to-warehouse
+            constraintName: item-foreign-key-to-warehouse
             referencedTableName: item
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-item-id-in-cart-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: cart
             baseColumnNames: item_id
-            constraintName: item-foreing-key-to-cart
+            constraintName: item-foreign-key-to-cart
             referencedTableName: item
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-client-id-in-cart-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: cart
             baseColumnNames: client_id
-            constraintName: client-foreing-key-to-cart
+            constraintName: client-foreign-key-to-cart
             referencedTableName: client
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-item-id-in-client-order-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: client_order
             baseColumnNames: item_id
-            constraintName: item-foreing-key-to-order
+            constraintName: item-foreign-key-to-order
             referencedTableName: item
             referencedColumnNames: id
             onUpdate: CASCADE
   - changeSet:
       id: add-foreign-key-to-client-id-in-client-order-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - addForeignKeyConstraint:
             baseTableName: client_order
             baseColumnNames: client_id
-            constraintName: client-foreing-key-to-order
+            constraintName: client-foreign-key-to-order
             referencedTableName: client
             referencedColumnNames: id
             onUpdate: CASCADE
@@ -322,6 +377,42 @@ databaseChangeLog:
             referencedColumnNames: id
             onUpdate: CASCADE
             onDelete: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-address-id-in-seller-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: seller
+            baseColumnNames: address_id
+            constraintName: address-foreign-key-to-seller
+            referencedTableName: address
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-seller-id-in-warehouse-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: warehouse
+            baseColumnNames: seller_id
+            constraintName: seller-foreign-key-to-warehouse
+            referencedTableName: seller
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+  - changeSet:
+      id: add-foreign-key-to-client-details-id-in-client-order-table
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: client_order
+            baseColumnNames: order_details_id
+            constraintName: order-details-foreign-key-to-client-order
+            referencedTableName: order_details
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
   - include:
       file: db/changelog/db.changelog-12.12.2023-1.yaml
   - include:

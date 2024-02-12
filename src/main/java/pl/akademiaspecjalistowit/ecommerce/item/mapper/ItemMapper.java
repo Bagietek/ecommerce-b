@@ -5,6 +5,7 @@ import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemAvailability;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemBo;
 import pl.akademiaspecjalistowit.ecommerce.item.model.ItemView;
+import pl.akademiaspecjalistowit.ecommerce.seller.mapper.SellerMapper;
 import pl.akademiaspecjalistowit.model.Item;
 
 public class ItemMapper {
@@ -59,7 +60,7 @@ public class ItemMapper {
         }
         Item item = new Item();
         item.setName(itemView.getName());
-        item.setAmount(item.getAmount());
+        item.setAmount(itemView.getNumberOfProducts());
         item.setPrice(itemView.getPrice());
         item.setDescription(itemView.getDescription());
         item.setCategory(itemView.getCategoryName());

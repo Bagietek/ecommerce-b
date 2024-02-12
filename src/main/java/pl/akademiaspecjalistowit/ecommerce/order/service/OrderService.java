@@ -1,13 +1,19 @@
 package pl.akademiaspecjalistowit.ecommerce.order.service;
 
-import pl.akademiaspecjalistowit.ecommerce.entity.ClientOrderEntity;
-import pl.akademiaspecjalistowit.ecommerce.order.repository.OrderSummary;
+import pl.akademiaspecjalistowit.ecommerce.order.entity.OrderEntity;
+import pl.akademiaspecjalistowit.model.GetOrderByTechnicalId200Response;
+import pl.akademiaspecjalistowit.model.Order;
+import pl.akademiaspecjalistowit.model.SubmitOrderFromCart200Response;
+import pl.akademiaspecjalistowit.model.SubmitOrderFromCartRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface OrderService {
 
-    public List<ClientOrderEntity> getAllOrders();
+    SubmitOrderFromCart200Response submitOrder(SubmitOrderFromCartRequest request);
 
-    public List<OrderSummary> getAllSummaries();
+    GetOrderByTechnicalId200Response getOrderByTechnicalId(String technicalId);
+
+    List<Order> getAllOrders();
 }

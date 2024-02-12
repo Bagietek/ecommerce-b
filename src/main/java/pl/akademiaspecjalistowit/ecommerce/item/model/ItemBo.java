@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.akademiaspecjalistowit.ecommerce.category.model.CategoryBo;
 import pl.akademiaspecjalistowit.ecommerce.item.exception.ItemInvalidDataException;
+import pl.akademiaspecjalistowit.ecommerce.seller.model.SellerBo;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -13,6 +14,9 @@ import java.util.UUID;
 public class ItemBo {
 
     public ItemBo(UUID technicalId, String description, CategoryBo categoryBo, String name, ItemAvailability itemAvailability, BigDecimal price) {
+        if(price.compareTo(BigDecimal.ZERO) <= 0){
+            throw new ItemInvalidDataException();
+        }
         this.technicalId = technicalId;
         this.description = description;
         this.categoryBo = categoryBo;

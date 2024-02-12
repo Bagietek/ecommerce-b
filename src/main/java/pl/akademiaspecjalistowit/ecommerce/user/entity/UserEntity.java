@@ -1,10 +1,7 @@
 package pl.akademiaspecjalistowit.ecommerce.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,13 +21,20 @@ public class UserEntity implements UserDetails {
         this.providerId = providerId;
     }
 
+    public UserEntity(Set<AuthorityEntity> authorities, String password, String username) {
+        this.authorities = authorities;
+        this.password = password;
+        this.username = username;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    // added merge
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name="user_entity_id")
+    @Setter
     private Set<AuthorityEntity> authorities;
 
     private String password;

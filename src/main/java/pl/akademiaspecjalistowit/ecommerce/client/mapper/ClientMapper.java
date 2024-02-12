@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.ecommerce.client.mapper;
 
+import pl.akademiaspecjalistowit.ecommerce.client.currency.model.AccountCurrency;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 import pl.akademiaspecjalistowit.ecommerce.client.model.ClientBo;
 import pl.akademiaspecjalistowit.ecommerce.client.model.ClientStatus;
@@ -13,7 +14,7 @@ public class ClientMapper {
         return new ClientEntity(
                 clientBo.getId(),
                 clientBo.getTechnicalId(),
-                clientBo.getAccountCurrency(),
+                clientBo.getAccountCurrency().toString(),
                 clientBo.getAccountBalance(),
                 clientBo.getStatus().toString(),
                 clientBo.getEmail(),
@@ -28,7 +29,7 @@ public class ClientMapper {
         return new ClientBo(
                 clientEntity.getId(),
                 clientEntity.getTechnicalId(),
-                clientEntity.getAccountCurrency(),
+                AccountCurrency.valueOf(clientEntity.getAccountCurrency()),
                 clientEntity.getAccountBalance(),
                 ClientStatus.valueOf(clientEntity.getStatus()),
                 clientEntity.getEmail(),
@@ -46,5 +47,17 @@ public class ClientMapper {
         client.setName(clientEntity.getName());
         client.setSurname(clientEntity.getSurname());
         return client;
+    }
+
+    public static ClientBo clientBoFromDto(Client client){
+        if(client == null){
+            return null;
+        }
+        return new ClientBo(
+                client.getEmail(),
+                client.getName(),
+                client.getSurname(),
+                AddressMapper.boFromAddress(client.getAddress())
+        );
     }
 }

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-jdbc-session-table
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createTable:
             tableName: SPRING_SESSION

@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.ecommerce.entity;
+package pl.akademiaspecjalistowit.ecommerce.cart.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import pl.akademiaspecjalistowit.ecommerce.client.entity.ClientEntity;
 import pl.akademiaspecjalistowit.ecommerce.item.entity.ItemEntity;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,9 +19,9 @@ import java.util.UUID;
 @Table(name = "cart")
 public class CartEntity {
 
-    public CartEntity(UUID technicalId, Set<ItemEntity> itemId, Long numberOfProducts, ClientEntity clientId, String promoCode) {
+    public CartEntity(UUID technicalId, ItemEntity itemId, Long numberOfProducts, ClientEntity clientId, String promoCode) {
         this.technicalId = technicalId;
-        this.itemId = itemId;
+        this.items = itemId;
         this.numberOfProducts = numberOfProducts;
         this.clientId = clientId;
         this.promoCode = promoCode;
@@ -33,15 +34,15 @@ public class CartEntity {
     @Column(name = "technical_id")
     private UUID technicalId;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
-    private Set<ItemEntity> itemId;
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private ItemEntity items;
 
     @Column(name = "number_of_products")
     private Long numberOfProducts;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "client_id")
     private ClientEntity clientId;
 
     @Column(name = "promo_code")

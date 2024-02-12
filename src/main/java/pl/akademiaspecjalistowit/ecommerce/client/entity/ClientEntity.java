@@ -66,8 +66,7 @@ public class ClientEntity {
 
     private String surname;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private AddressEntity addressEntity;
 }

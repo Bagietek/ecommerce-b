@@ -1,6 +1,7 @@
 package pl.akademiaspecjalistowit.ecommerce.warehouse.mapper;
 
 import pl.akademiaspecjalistowit.ecommerce.item.mapper.ItemMapper;
+import pl.akademiaspecjalistowit.ecommerce.seller.mapper.SellerMapper;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.entity.WarehouseEntity;
 import pl.akademiaspecjalistowit.ecommerce.warehouse.model.WarehouseBo;
 
@@ -14,7 +15,8 @@ public class WarehouseMapper {
                 warehouseBo.getId(),
                 warehouseBo.getTechnicalId(),
                 ItemMapper.entityFromBo(warehouseBo.getItemBo()),
-                warehouseBo.getNumberOfProducts()
+                warehouseBo.getNumberOfProducts(),
+                SellerMapper.entityFromBo(warehouseBo.getSellerBo())
         );
     }
 
@@ -26,7 +28,8 @@ public class WarehouseMapper {
                 warehouse.getId(),
                 warehouse.getTechnicalId(),
                 ItemMapper.boFromEntity(warehouse.getItemId()),
-                warehouse.getNumberOfProducts()
+                warehouse.getNumberOfProducts(),
+                SellerMapper.boFromEntity(warehouse.getSellerEntity())
         );
     }
 }

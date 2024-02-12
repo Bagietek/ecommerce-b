@@ -1,19 +1,26 @@
 databaseChangeLog:
   - changeSet:
       id: create-order-summary-view
-      author: Bartosz Bartocha
+      author: Bartek
       changes:
         - createView:
             viewName: order_summary
             selectQuery: >
-              SELECT o.technical_id,
-              o.currency,
-              o.order_date_time,
-              SUM(o.total_amount) AS total_amount_sum,
-              o.shipping_method,
-              o.status
+              SELECT 
+              o.id AS id,
+              o.technical_id,
+              d.order_date AS order_date,
+              d.delivery_date AS delivery_date,
+              o.total_amount AS amount,
+              i.price,
+              i.name,
+              i.description,
+              d.shipping_method,
+              d.status,
+              d.promo_code
               FROM client_order o
-              GROUP BY o.technical_id, o.currency, o.order_date_time, o.shipping_method, o.status;
+              JOIN order_details d ON o.order_details_id = d.id
+              JOIN item i ON o.item_id = i.id;
         - createView:
             viewName: item_summary
             selectQuery: >
@@ -27,3 +34,18 @@ databaseChangeLog:
               FROM item i
               JOIN warehouse w ON i.id = w.item_id
               JOIN category c ON c.id = i.category_id;
+        - createView:
+            viewName: cart_summary
+            selectQuery: >
+              SELECT
+              cli.technical_id AS client,
+              i.name AS name,
+              i.description AS description,
+              i.price AS price,
+              cat.name AS category_name,
+              c.number_of_products AS amount,
+              c.promo_code AS code
+              FROM cart c
+              JOIN item i ON i.id = c.item_id
+              JOIN category cat ON cat.id = i.category_id
+              JOIN client cli ON cli.id = c.client_id;

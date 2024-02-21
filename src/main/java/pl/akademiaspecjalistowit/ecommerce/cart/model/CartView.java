@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Table(name = "cart_summary")
 public class CartView {
 
-    public CartView(String name, String description, Long price, String categoryName, Integer amount, String code) {
+    public CartView(String name, String description, BigDecimal price, String categoryName, Integer amount, String code) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -35,7 +36,7 @@ public class CartView {
 
     private String description;
 
-    private Long price;
+    private BigDecimal price;
 
     @Column(name = "category_name")
     private String categoryName;

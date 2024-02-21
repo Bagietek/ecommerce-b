@@ -52,14 +52,14 @@ public class CartMapper {
         }
         GetAllCartItems200Response response = new GetAllCartItems200Response();
         Cart cart = new Cart();
-        cart.setPromoCode(cart.getPromoCode());
+        cart.setPromoCode(cartView.getFirst().getCode());
         cart.setItems(cartView.stream()
                 .map(view -> {
                     Item item = new Item();
                     item.setName(view.getName());
                     item.setCategory(view.getCategoryName());
                     item.setDescription(view.getDescription());
-                    item.setPrice(BigDecimal.valueOf(view.getPrice()));
+                    item.setPrice(view.getPrice());
                     item.setAmount(view.getAmount());
                     return item;
                 })

@@ -64,6 +64,6 @@ public class CartDataService {
     }
 
     public List<CartView> getClientCartView(UUID clientTechnicalId){
-        return cartViewRepository.getAllByClientId(clientTechnicalId);
+        return cartViewRepository.findByClientId(clientTechnicalId);
     }
 }
